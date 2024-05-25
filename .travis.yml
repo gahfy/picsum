@@ -32,7 +32,7 @@ before_script:
   - yes | ${TOOLS}/bin/sdkmanager "platforms;android-34"
   - yes | ${TOOLS}/bin/sdkmanager "build-tools;34.0.0"
   ## Create android 24 AVD and wait until boot is finished
-  - echo no | android create avd --force -n test -t android-25 --abi armeabi-v7a -c 100M
+  - echo no | avdmanager create avd -n test -k "system-images;android-34;google_apis;arm64-v8a"ls
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
