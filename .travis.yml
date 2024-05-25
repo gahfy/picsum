@@ -21,7 +21,6 @@ android:
     - tools
     - build-tools-34.0.0
     - android-34
-    - sys-img-armeabi-v7a-android-34
 before_script:
   ## Install last version of command line tools
   - wget -q "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip" -O android-commandline-tools-linux.zip
@@ -31,6 +30,7 @@ before_script:
   ## Accept licence agreements
   - yes | ${TOOLS}/bin/sdkmanager "platforms;android-34"
   - yes | ${TOOLS}/bin/sdkmanager "build-tools;34.0.0"
+  - yes | ${TOOLS}/bin/sdkmanager "system-images;android-34;google_apis;arm64-v8a"
   ## Create android 24 AVD and wait until boot is finished
   - echo no | ${TOOLS}/bin/avdmanager create avd -n test -k "system-images;android-34;google_apis;arm64-v8a"ls
   - emulator -avd test -no-audio -no-window &
