@@ -1,14 +1,19 @@
-language: android
 dist: trusty
 
-jdk:
-  - openjdk17
+language: android
+addons:
+  apt:
+    packages:
+      - openjdk-17-jdk
 
 env:
   global:
-    - ANDROID_API_LEVEL=34
-    - EMULATOR_API_LEVEL=24
-    - ANDROID_BUILD_TOOLS_VERSION=34.0.0
+    # Remember to keep these four values in sync with values in the root build.gradle file
+    - compileSdkVersion=34
+    - minSdkVersion=24
+    - targetSdkVersion=34
+    - toolsVersion=34.0.0 # default for Android Gradle Plugin 8.2.2
+    - JAVA17_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 android:
   components:
@@ -17,12 +22,6 @@ android:
     - tools
     - build-tools-34.0.0
     - android-34
-  licenses:
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
-before_install:
-  - chmod +x gradlew
-  - touch $HOME/.android/repositories.cfg
-  - yes | sdkmanager "platforms;android-34"
-  - yes | sdkmanager "build-tools;android-34"
+  before_install:
+    - yes | sdkmanager "platforms;android-34"
+    - yes | sdkmanager "build-tools;34.0.0"
