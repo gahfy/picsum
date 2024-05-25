@@ -12,6 +12,6 @@ android:
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
-before_install:
+before_script:
   - yes | sdkmanager "platforms;android-34"
   - yes | sdkmanager "build-tools;android-34"
