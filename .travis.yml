@@ -1,6 +1,9 @@
 language: android
 dist: trusty
 
+jdk:
+  - openjdk17
+
 android:
   components:
     - build-tools-34.0.0
