@@ -1,10 +1,7 @@
 dist: trusty
 
 language: android
-addons:
-  apt:
-    packages:
-      - openjdk-17-jdk
+jdk: openjdk17
 
 env:
   global:
@@ -12,7 +9,7 @@ env:
     - compileSdkVersion=34
     - minSdkVersion=24
     - targetSdkVersion=34
-    - toolsVersion=34.0.0 # default for Android Gradle Plugin 8.2.2
+    - toolsVersion=34.0.0
     - JAVA17_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 android:
