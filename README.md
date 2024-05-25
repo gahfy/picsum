@@ -11,6 +11,10 @@ This application is made of a UI and a data module
 This module is the module containing the data, which are the models, the datasource contracts, and
 the repositories implementations.
 
+### Domain layer / `domain` module / `com.resy.picsum.domain` package name
+
+This module is the module containing the use cases of the application.
+
 ### UI layer / `app` module / `com.resy.picsum.android` package name
 
 This module is the module containing the UI and the elements of the running application. The name
