@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Picsum"
 include(":app")
+include(":data")
