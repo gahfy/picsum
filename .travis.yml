@@ -9,12 +9,10 @@ addons:
 
 env:
   global:
-    # Remember to keep these four values in sync with values in the root build.gradle file
-    - compileSdkVersion=34
-    - minSdkVersion=24
-    - targetSdkVersion=34
-    - toolsVersion=34.0.0
-    - JAVA17_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+    - BUILD_API=34
+    - BUILD_TOOLS=34.0.0
+    - ANDROID_HOME=/usr/local/android-sdk
+    - TOOLS=${ANDROID_HOME}/cmdline-tools/latest
 
 android:
   components:
@@ -23,6 +21,10 @@ android:
     - tools
     - build-tools-34.0.0
     - android-34
-before_install:
-  - yes | sdkmanager "platforms;android-34"
-  - yes | sdkmanager "build-tools;34.0.0"
+before_script:
+  - wget -q "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip" -O android-commandline-tools-linux.zip
+  - mkdir -p ${ANDROID_HOME}/cmdline-tools
+  - unzip -q android-commandline-tools-linux.zip -d ${ANDROID_HOME}/cmdline-tools
+  - mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest
+  - yes | ${TOOLS}/bin/sdkmanager "platforms;android-34"
+  - yes | ${TOOLS}/bin/sdkmanager "build-tools;34.0.0"
