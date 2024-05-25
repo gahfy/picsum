@@ -23,3 +23,4 @@ rootProject.name = "Picsum"
 include(":app")
 include(":data")
 include(":domain")
+include(":framework")

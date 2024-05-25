@@ -11,6 +11,10 @@ This application is made of a UI and a data module
 This module is the module containing the data, which are the models, the datasource contracts, and
 the repositories implementations.
 
+### Framwork layer / `framework` module / `com.resu.picsum.framework` package name
+
+This module is the module which will contain implementation of the contracts in the data module.
+
 ### Domain layer / `domain` module / `com.resy.picsum.domain` package name
 
 This module is the module containing the use cases of the application.
