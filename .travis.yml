@@ -2,6 +2,10 @@ dist: trusty
 
 language: android
 jdk: openjdk17
+addons:
+  apt:
+    packages:
+      - openjdk-17-jdk
 
 env:
   global:
