@@ -29,5 +29,5 @@ install:
   - adb kill-server && adb start-server &
   - sleep 15 # sleep values may require adjusting depending on the specific build environment
   - emulator @test -no-audio -no-window &
-  - adb wait-for-device
+  - sleep 60
   - adb shell input keyevent 82 &
