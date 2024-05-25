@@ -8,3 +8,6 @@ android:
   components:
     - build-tools-34.0.0
     - android-34
+  licenses:
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
