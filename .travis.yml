@@ -22,6 +22,6 @@ android:
     - tools
     - build-tools-34.0.0
     - android-34
-  before_install:
-    - yes | sdkmanager "platforms;android-34"
-    - yes | sdkmanager "build-tools;34.0.0"
+before_install:
+  - yes | sdkmanager "platforms;android-34"
+  - yes | sdkmanager "build-tools;34.0.0"
