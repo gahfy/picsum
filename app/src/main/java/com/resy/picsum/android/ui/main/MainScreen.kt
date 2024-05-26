@@ -13,6 +13,7 @@ import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
 
+@Suppress("FunctionNaming")
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier
@@ -31,6 +32,7 @@ fun MainScreen(
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview(
     widthDp = 280,
@@ -44,6 +46,7 @@ fun MainScreenPreview() {
     }
 }
 
+@Suppress("FunctionNaming")
 @Composable
 @Preview(
     widthDp = 280,
