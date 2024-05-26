@@ -13,7 +13,7 @@ jobs:
     secrets:
       GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
     with:
-      commands: lint detekt checkstyle
+      commands: lint detekt checkstyleMain checkstyleTest
 
   unitTest:
     name: Unit Tests
