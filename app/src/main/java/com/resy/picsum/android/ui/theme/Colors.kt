@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.resy.picsum.android.ui.theme
 
 import androidx.compose.ui.graphics.Color

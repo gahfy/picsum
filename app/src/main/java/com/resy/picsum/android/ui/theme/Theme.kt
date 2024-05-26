@@ -36,6 +36,7 @@ val DarkColors = darkColorScheme(
     onBackground = GROUND_ORANGE
 )
 
+@Suppress("FunctionNaming")
 @Composable
 fun AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
@@ -63,6 +64,7 @@ fun AppTheme(
     )
 }
 
+@Suppress("FunctionNaming")
 @Composable
 fun AppSurface(
     modifier: Modifier = Modifier,
