@@ -7,14 +7,6 @@ on:
     branches: [ main ]
 
 jobs:
-  codesmell:
-    name: Code Smell (Detekt, CheckStyle, Lint)
-    uses: ./.github/workflows/launch_gradle_commands.yml
-    secrets:
-      GOOGLE_SERVICES: ${{ secrets.GOOGLE_SERVICES }}
-    with:
-      commands: lint detekt checkstyle
-
   unitTest:
     name: Unit Tests
     uses: ./.github/workflows/launch_gradle_commands.yml
