@@ -52,6 +52,9 @@ jobs:
       - name: Set current project
         run: gcloud config set project ${{ secrets.FIREBASE_PROJECT_ID }}
 
+      - name: List virtual ARM devices
+        run: gcloud firebase test android models list --filter=virtual
+
       - name: Run Instrumentation Tests in Firebase Test Lab
         env:
           APP_DEBUG_LOCATION: app-debug.apk
