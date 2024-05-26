@@ -26,7 +26,6 @@ class MainScreenTest {
                 }
             }
         }
-
         composeTestRule.onNodeWithText("Hello, World!").assertIsDisplayed()
     }
 }
