@@ -17,7 +17,6 @@ before_install:
   - export PATH=$ANDROID_HOME/emulator/:$PATH
   - export PATH=$ANDROID_HOME/platform-tools/:$PATH
 
-
 install:
   # INSTALL REQUIRED ANDROID SDK TOOLS
   - sdkmanager --sdk_root=$ANDROID_HOME --list | awk '/Installed/{flag=1; next} /Available/{flag=0} flag'
@@ -31,3 +30,7 @@ install:
   - emulator @test -no-audio -no-window &
   - sleep 60
   - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew test
+  - ./gradlew connectedAndroidTest
