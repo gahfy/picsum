@@ -12,4 +12,8 @@ java {
 
 dependencies {
     implementation(project(":data"))
+
+    testImplementation(libs.junit)
+    implementation(libs.coroutines)
+    testImplementation(libs.coroutines.test)
 }

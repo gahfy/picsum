@@ -13,6 +13,11 @@ import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
 
+/**
+ * Main screen of the application.
+ *
+ * @param modifier The modifier to be applied to the screen.
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun MainScreen(

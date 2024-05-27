@@ -18,7 +18,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-val LightColors = lightColorScheme(
+/**
+ * The color scheme to apply when in light mode
+ */
+private val LightColors = lightColorScheme(
     primary = SKY_BLUE,
     onPrimary = WHITE,
     secondary = SEA_BLUE,
@@ -27,7 +30,10 @@ val LightColors = lightColorScheme(
     onBackground = SKY_BLUE
 )
 
-val DarkColors = darkColorScheme(
+/**
+ * The color scheme to apply when in dark mode
+ */
+private val DarkColors = darkColorScheme(
     primary = GROUND_ORANGE,
     onPrimary = BLACK,
     secondary = GOLD_STAR,
@@ -36,6 +42,14 @@ val DarkColors = darkColorScheme(
     onBackground = GROUND_ORANGE
 )
 
+/**
+ * The theme to apply to the application. It basically uses the color schemes if not using
+ * dynamic colors.
+ *
+ * @param useDarkTheme     whether to return the dark mode color scheme or not
+ * @param useDynamicColors whether to use material dynamic colors or not
+ * @param content          the content to be applied by that theme
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun AppTheme(
@@ -64,6 +78,15 @@ fun AppTheme(
     )
 }
 
+/**
+ * The surface to be the content of the application. It basically uses the theme colors to apply
+ * it as a background.
+ *
+ * @param modifier         the modifier to apply to the Surface.
+ * @param useDarkTheme     whether to use dark mode or not
+ * @param useDynamicColors whether to use material dynamic colors or not
+ * @param content          the content to put in the surface
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun AppSurface(
@@ -83,6 +106,14 @@ fun AppSurface(
     )
 }
 
+/**
+ * Returns the color scheme to be used by the application.
+ *
+ * @param useDarkTheme     whether to use dark mode colors or not
+ * @param useDynamicColors whether to use material dynamic colors or not
+ *
+ * @return the color scheme to be used by the application
+ */
 @Composable
 private fun getColorScheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),

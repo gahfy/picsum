@@ -9,6 +9,13 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import com.resy.picsum.android.R
 
+/**
+ * Returns the Typography to be used by the application.
+ *
+ * @param context Context in which the application is running.
+ *
+ * @return the Typography to be used by the application
+ */
 fun defaultTypography(
     context: Context
 ) = Typography(
