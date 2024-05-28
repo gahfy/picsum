@@ -2,7 +2,9 @@ package com.resy.picsum.data.repository
 
 import com.resy.picsum.data.datasource.LocalImageDatasource
 import com.resy.picsum.data.datasource.RemoteImageDatasource
+import com.resy.picsum.data.model.Datasource
 import com.resy.picsum.data.model.Image
+import com.resy.picsum.data.model.ImageListResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +19,7 @@ interface ImageRepository {
      *
      * @return a flow for the list of images from the repository
      */
-    fun getImages(): Flow<List<Image>>
+    fun getImages(): Flow<ImageListResult>
 }
 
 /**
@@ -46,12 +48,17 @@ class ImageRepositoryImpl(
      *
      * @return the flow of images from the repository
      */
-    override fun getImages(): Flow<List<Image>> = flow {
+    override fun getImages(): Flow<ImageListResult> = flow {
         // Get images from the local datasource and emits it
         val localData = withContext(Dispatchers.IO) {
             localDatasource.getLocalImageList()
         }
-        emit(localData)
+        emit(
+            ImageListResult(
+                datasource = Datasource.LOCAL,
+                result = localData
+            )
+        )
 
         // Generates a map to associate id of images to images
         val localDataMap = withContext(Dispatchers.Default) {
@@ -90,8 +97,13 @@ class ImageRepositoryImpl(
             localDatasource.insert(toAdd)
             localDatasource.update(toUpdate)
             localDatasource.delete(toDelete)
-
-            emit(localDatasource.getLocalImageList())
         }
+
+        emit(
+            ImageListResult(
+                datasource = Datasource.REMOTE,
+                result = localDatasource.getLocalImageList()
+            )
+        )
     }
 }

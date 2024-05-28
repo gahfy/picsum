@@ -27,7 +27,9 @@ private val LightColors = lightColorScheme(
     secondary = SEA_BLUE,
     onSecondary = WHITE,
     background = WHITE,
-    onBackground = SKY_BLUE
+    onBackground = DARK_SEA,
+    surface = WHITE,
+    onSurface = DARK_SEA
 )
 
 /**
@@ -39,7 +41,9 @@ private val DarkColors = darkColorScheme(
     secondary = GOLD_STAR,
     onSecondary = WHITE,
     background = BLACK,
-    onBackground = GROUND_ORANGE
+    onBackground = GOLD_STAR,
+    surface = BLACK,
+    onSurface = GOLD_STAR
 )
 
 /**
@@ -95,13 +99,8 @@ fun AppSurface(
     useDynamicColors: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val colors = getColorScheme(
-        useDarkTheme = useDarkTheme,
-        useDynamicColors = useDynamicColors
-    )
     Surface(
         modifier = modifier,
-        color = colors.background,
         content = content
     )
 }

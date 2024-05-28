@@ -18,14 +18,38 @@ import com.resy.picsum.android.R
  */
 fun defaultTypography(
     context: Context
-) = Typography(
-    bodyMedium = TextStyle(
-        fontWeight = FontWeight.SemiBold,
-        fontFamily = FontFamily(
-            typeface = ResourcesCompat.getFont(context, R.font.shirens)!!
+): Typography {
+    val robotoRegular = ResourcesCompat.getFont(context, R.font.roboto_regular)?.let {
+        FontFamily(typeface = it)
+    }?: FontFamily.SansSerif
+    val robotoMedium = ResourcesCompat.getFont(context, R.font.roboto_medium)?.let {
+        FontFamily(typeface = it)
+    }?: FontFamily.SansSerif
+    val shirens = ResourcesCompat.getFont(context, R.font.shirens)?.let {
+        FontFamily(typeface = it)
+    }?: FontFamily.SansSerif
+
+    return Typography(
+
+        bodyMedium = TextStyle(
+            fontWeight = FontWeight.Normal,
+            fontFamily = robotoRegular,
+            fontSize = 14.sp,
+            letterSpacing = 0.25.sp
         ),
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+
+        bodyLarge = TextStyle(
+            fontWeight = FontWeight.Medium,
+            fontFamily = robotoMedium,
+            fontSize = 16.sp,
+            letterSpacing = 0.5.sp
+        ),
+
+        labelLarge = TextStyle(
+            fontWeight = FontWeight.Medium,
+            fontFamily = shirens,
+            fontSize = 16.sp,
+            letterSpacing = 0.5.sp
+        )
     )
-)
+}

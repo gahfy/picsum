@@ -2,6 +2,7 @@ package com.resy.picsum.data.repository
 
 import com.resy.picsum.data.datasource.LocalImageDatasource
 import com.resy.picsum.data.datasource.RemoteImageDatasource
+import com.resy.picsum.data.model.Datasource
 import com.resy.picsum.data.model.Image
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
@@ -80,16 +81,18 @@ class ImageRepositoryTest {
         val images = repository.getImages()
 
         val imagesEmitted = images.first()
-        assertEquals("First from local should have 3 items", 3, imagesEmitted.size)
-        assertTrue("First from local should have the image 0", imagesEmitted.contains(image0))
-        assertTrue("First from local should have the image 1", imagesEmitted.contains(image1))
-        assertTrue("First from local should have the image 2", imagesEmitted.contains(image2))
+        assertEquals("First from local should have 3 items", 3, imagesEmitted.result.size)
+        assertEquals("First result should come from local datasource", Datasource.LOCAL, imagesEmitted.datasource)
+        assertTrue("First from local should have the image 0", imagesEmitted.result.contains(image0))
+        assertTrue("First from local should have the image 1", imagesEmitted.result.contains(image1))
+        assertTrue("First from local should have the image 2", imagesEmitted.result.contains(image2))
 
         val imagesEmitted2 = images.drop(1).first()
-        assertEquals("Second after remote should have 4 items", 3, imagesEmitted2.size)
-        assertTrue("First from local should have the image 1", imagesEmitted.contains(image1))
-        assertTrue("First from local should have the image 2 updated", imagesEmitted.contains(image2Updated))
-        assertTrue("First from local should have the image 3", imagesEmitted.contains(image3))
+        assertEquals("Second after remote should have 4 items", 3, imagesEmitted2.result.size)
+        assertEquals("Second result should come from remote datasource", Datasource.REMOTE, imagesEmitted2.datasource)
+        assertTrue("Second from remote should have the image 1", imagesEmitted2.result.contains(image1))
+        assertTrue("Second from remote should have the image 2 updated", imagesEmitted2.result.contains(image2Updated))
+        assertTrue("Second from remote should have the image 3", imagesEmitted2.result.contains(image3))
         assertEquals("Insert should have been called only once", 1, localInsertCalls.size)
         assertEquals("Only one image should have been inserted", 1, localInsertCalls[0].size)
         assertEquals("Only image 3 should have been inserted", image3, localInsertCalls[0][0])

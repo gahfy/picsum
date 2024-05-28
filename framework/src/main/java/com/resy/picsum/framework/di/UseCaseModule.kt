@@ -2,6 +2,7 @@ package com.resy.picsum.framework.di
 
 import com.resy.picsum.data.repository.ImageRepository
 import com.resy.picsum.domain.usecase.GetImageListUseCase
+import com.resy.picsum.domain.usecase.GetImageListUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +28,7 @@ internal object UseCaseModule {
     fun provideGetImageUseCase(
         repository: ImageRepository
     ) : GetImageListUseCase {
-        return GetImageListUseCase(
+        return GetImageListUseCaseImpl(
             repository
         )
     }

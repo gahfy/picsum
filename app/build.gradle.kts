@@ -74,4 +74,6 @@ dependencies {
 
     implementation(libs.daggerHilt)
     ksp(libs.daggerCompiler)
+
+    testImplementation(libs.coroutines.test)
 }

@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
+import com.resy.picsum.data.model.Image
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,10 +23,17 @@ class MainScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 AppSurface {
-                    MainScreen()
+                    MainScreen(
+                        MainState.MainStateSuccess(
+                            images = listOf(
+                                Image(0, 3000, 4000, "0.jpg", "John Doe")
+                            ),
+                            errorMessage = null
+                        )
+                    )
                 }
             }
         }
-        composeTestRule.onNodeWithText("Hello, World!").assertIsDisplayed()
+        composeTestRule.onNodeWithText("John Doe").assertIsDisplayed()
     }
 }
