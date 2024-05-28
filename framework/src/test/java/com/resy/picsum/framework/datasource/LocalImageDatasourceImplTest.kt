@@ -83,10 +83,13 @@ class LocalImageDatasourceImplTest {
 
         assertEquals("List should have 2 items only", 2, imageEntities.size)
         assertTrue("List should contain image0", imageEntities.contains(imageEntity0))
-        assertTrue("List should contain image1 updated", imageEntities.contains(imageEntity1Updated))
+        assertTrue(
+            "List should contain image1 updated",
+            imageEntities.contains(imageEntity1Updated)
+        )
     }
 
-    private val dao = object: ImageDao {
+    private val dao = object : ImageDao {
         override suspend fun getImages(): List<ImageDbEntity> = imageEntities
 
         override suspend fun insertAll(images: List<ImageDbEntity>) {

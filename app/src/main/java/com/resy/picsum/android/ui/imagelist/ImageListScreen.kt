@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.image_list
+package com.resy.picsum.android.ui.imagelist
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +17,7 @@ import com.resy.picsum.android.ui.component.ImageListItem
 import com.resy.picsum.android.ui.main.MainState
 import kotlinx.coroutines.launch
 
+@Suppress("FunctionNaming")
 @Composable
 fun ImageListScreen(
     state: MainState.MainStateSuccess

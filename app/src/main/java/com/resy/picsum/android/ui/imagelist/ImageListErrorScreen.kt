@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.image_list
+package com.resy.picsum.android.ui.imagelist
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,7 @@ import com.resy.picsum.android.ui.main.MainState
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
 
+@Suppress("FunctionNaming")
 @Composable
 fun ImageListErrorScreen(
     state: MainState.MainStateError
@@ -43,6 +44,7 @@ fun ImageListErrorScreen(
     }
 }
 
+@Suppress("FunctionNaming")
 @Preview
 @Composable
 fun ImageListErrorScreenPreview() {

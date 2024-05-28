@@ -51,16 +51,14 @@ class MainViewModel @Inject constructor(
     private fun loadImages() {
         setLoadImageStartState()
         viewModelScope.launch {
-            if(BuildConfig.DEBUG) {
-                withContext(Dispatchers.IO) {
-                    sleep(1000)
-                }
-            }
             try {
                 getImageListUseCase().collect {result ->
                     updateOnImageState(result)
                 }
-            } catch(t: Throwable) {
+            } catch(e: IOException) {
+                if(BuildConfig.DEBUG) {
+                    e.printStackTrace()
+                }
                 setOnErrorState()
             }
         }
@@ -100,9 +98,12 @@ class MainViewModel @Inject constructor(
     }
 
     private fun updateSuccessState(
-        images: List<Image> = (_state.value as? MainState.MainStateSuccess)?.images?: listOf(),
-        errorMessage: Event<String>? = (_state.value as? MainState.MainStateSuccess)?.errorMessage,
-        onErrorActionClick: () -> Unit = (_state.value as? MainState.MainStateSuccess)?.onErrorActionClick ?: ::loadImages
+        images: List<Image> =
+            (_state.value as? MainState.MainStateSuccess)?.images?: listOf(),
+        errorMessage: Event<String>? =
+            (_state.value as? MainState.MainStateSuccess)?.errorMessage,
+        onErrorActionClick: () -> Unit =
+            (_state.value as? MainState.MainStateSuccess)?.onErrorActionClick ?: ::loadImages
     ) {
         _state.value = MainState.MainStateSuccess(
             images,

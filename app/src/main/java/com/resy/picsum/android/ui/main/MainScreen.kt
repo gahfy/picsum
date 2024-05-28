@@ -1,21 +1,13 @@
 package com.resy.picsum.android.ui.main
 
 import android.content.res.Configuration
-import android.widget.ProgressBar
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.resy.picsum.android.R
-import com.resy.picsum.android.ui.image_list.ImageListErrorScreen
-import com.resy.picsum.android.ui.image_list.ImageListLoadingScreen
-import com.resy.picsum.android.ui.image_list.ImageListScreen
+import com.resy.picsum.android.ui.imagelist.ImageListErrorScreen
+import com.resy.picsum.android.ui.imagelist.ImageListLoadingScreen
+import com.resy.picsum.android.ui.imagelist.ImageListScreen
 import com.resy.picsum.android.ui.model.Event
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
@@ -52,7 +44,7 @@ fun MainScreen(
     }
 }
 
-@Suppress("FunctionNaming")
+@Suppress("FunctionNaming","MagicNumber")
 @Composable
 @Preview(
     widthDp = 280,
@@ -76,7 +68,7 @@ fun MainScreenPreview() {
     }
 }
 
-@Suppress("FunctionNaming")
+@Suppress("FunctionNaming","MagicNumber")
 @Composable
 @Preview(
     widthDp = 280,

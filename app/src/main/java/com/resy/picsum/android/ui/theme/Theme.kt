@@ -95,8 +95,6 @@ fun AppTheme(
 @Composable
 fun AppSurface(
     modifier: Modifier = Modifier,
-    useDarkTheme: Boolean = isSystemInDarkTheme(),
-    useDynamicColors: Boolean = false,
     content: @Composable () -> Unit
 ) {
     Surface(

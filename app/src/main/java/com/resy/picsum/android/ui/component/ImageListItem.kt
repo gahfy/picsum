@@ -16,6 +16,7 @@ import com.resy.picsum.data.model.Image
  * @param image    the image to be displayed in the item
  * @param modifier the modifier to apply to the item
  */
+@Suppress("FunctionNaming")
 @Composable
 fun ImageListItem(
     image: Image,
@@ -36,6 +37,7 @@ fun ImageListItem(
     )
 }
 
+@Suppress("FunctionNaming","MagicNumber")
 @Composable
 @Preview
 fun ImageListItemPreview() {
@@ -48,6 +50,7 @@ fun ImageListItemPreview() {
     }
 }
 
+@Suppress("FunctionNaming","MagicNumber")
 @Composable
 @Preview(
     uiMode = Configuration.UI_MODE_NIGHT_YES

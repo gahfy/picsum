@@ -45,7 +45,11 @@ class GetImageListUseCaseTest {
 
         val imagesEmittedByUseCase = useCase().toList()
 
-        assertEquals("Use case should emit the same data as the repository", imagesEmittedByRepository, imagesEmittedByUseCase)
+        assertEquals(
+            "Use case should emit the same data as the repository",
+            imagesEmittedByRepository,
+            imagesEmittedByUseCase
+        )
     }
 
     val repository = object: ImageRepository {
