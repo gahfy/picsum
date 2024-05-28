@@ -2,6 +2,13 @@
 
 This application displays images retrieved from the Picsum API listing.
 
+## Assumptions
+
+### Each row should display the filename of the corresponding image.
+
+As it is not stated that it should display **ONLY** the filename, and as it looked **too empty** to
+my taste when trying the design, I added the author of the image to each row.
+
 ## Architecture of the application
 
 This application is made of a UI and a data module

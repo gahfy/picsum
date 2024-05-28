@@ -2,37 +2,49 @@ package com.resy.picsum.android.ui.main
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.resy.picsum.android.R
+import com.resy.picsum.android.ui.imagelist.ImageListErrorScreen
+import com.resy.picsum.android.ui.imagelist.ImageListLoadingScreen
+import com.resy.picsum.android.ui.imagelist.ImageListScreen
+import com.resy.picsum.android.ui.model.Event
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
+import com.resy.picsum.data.model.Image
 
+
+/**
+ * Main screen of the application.
+ *
+ * @param modifier The modifier to be applied to the screen.
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun MainScreen(
+    state: MainState,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
     ) {
-        Text(
-            modifier = Modifier
-                .align(Alignment.Center),
-            text = stringResource(
-                id = R.string.hello_world
-            ),
-            style = MaterialTheme.typography.bodyMedium,
-        )
+        when(state) {
+            is MainState.MainStateSuccess -> {
+                ImageListScreen(state)
+            }
+            is MainState.MainStateError -> {
+                ImageListErrorScreen(
+                    state = state
+                )
+            }
+            is MainState.MainStateLoading -> {
+                ImageListLoadingScreen()
+            }
+        }
     }
 }
 
-@Suppress("FunctionNaming")
+@Suppress("FunctionNaming","MagicNumber")
 @Composable
 @Preview(
     widthDp = 280,
@@ -41,12 +53,22 @@ fun MainScreen(
 fun MainScreenPreview() {
     AppTheme {
         AppSurface {
-            MainScreen()
+            MainScreen(
+                state = MainState.MainStateSuccess(
+                    images = listOf(
+                        Image(0, 3000, 4000, "0.jpg", "John Doe"),
+                        Image(1, 3000, 4000, "1.jpg", "Alice"),
+                        Image(2, 3000, 4000, "2.jpg", "Bob"),
+                    ),
+                    errorMessage = Event("Test"),
+                    onErrorActionClick = {}
+                )
+            )
         }
     }
 }
 
-@Suppress("FunctionNaming")
+@Suppress("FunctionNaming","MagicNumber")
 @Composable
 @Preview(
     widthDp = 280,
@@ -56,7 +78,17 @@ fun MainScreenPreview() {
 fun MainScreenInDarkModePreview() {
     AppTheme {
         AppSurface {
-            MainScreen()
+            MainScreen(
+                state = MainState.MainStateSuccess(
+                    images = listOf(
+                        Image(0, 3000, 4000, "0.jpg", "John Doe"),
+                        Image(1, 3000, 4000, "1.jpg", "Alice"),
+                        Image(2, 3000, 4000, "2.jpg", "Bob"),
+                    ),
+                    errorMessage = null,
+                    onErrorActionClick = {}
+                )
+            )
         }
     }
 }

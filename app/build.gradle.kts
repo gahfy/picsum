@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.detekt)
     checkstyle
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.daggerHilt)
 }
 
 android {
@@ -29,16 +31,16 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"
-    }
-
-    buildFeatures {
-        compose = true
     }
 
     composeOptions {
@@ -69,4 +71,9 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+
+    implementation(libs.daggerHilt)
+    ksp(libs.daggerCompiler)
+
+    testImplementation(libs.coroutines.test)
 }
