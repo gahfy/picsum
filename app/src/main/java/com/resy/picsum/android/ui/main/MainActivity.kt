@@ -9,7 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.firebase.BuildConfig
+import com.resy.picsum.android.ui.imagelist.ImageListScreen
+import com.resy.picsum.android.ui.imagelist.ImageListViewModel
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class MainActivity: ComponentActivity() {
-    private val viewmodel: MainViewModel by viewModels()
+    private val viewmodel: ImageListViewModel by viewModels()
     /**
      * @inheritDoc
      * This essentially displays the content of the main Activity.
@@ -35,7 +36,7 @@ class MainActivity: ComponentActivity() {
                     setContent {
                         AppTheme {
                             AppSurface {
-                                MainScreen(
+                                ImageListScreen(
                                     modifier = Modifier.fillMaxSize(),
                                     state = mainState
                                 )

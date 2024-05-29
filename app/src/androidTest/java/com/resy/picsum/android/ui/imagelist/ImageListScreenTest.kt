@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.main
+package com.resy.picsum.android.ui.imagelist
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -23,8 +23,8 @@ class MainScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 AppSurface {
-                    MainScreen(
-                        MainState.MainStateSuccess(
+                    ImageListScreen(
+                        ImageListState.ImageListStateSuccess(
                             images = listOf(
                                 Image(0, 3000, 4000, "0.jpg", "John Doe")
                             ),

@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.main
+package com.resy.picsum.android.ui.imagelist
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
@@ -21,23 +21,23 @@ import com.resy.picsum.data.model.Image
  */
 @Suppress("FunctionNaming")
 @Composable
-fun MainScreen(
-    state: MainState,
+fun ImageListScreen(
+    state: ImageListState,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
     ) {
         when(state) {
-            is MainState.MainStateSuccess -> {
-                ImageListScreen(state)
+            is ImageListState.ImageListStateSuccess -> {
+                ImageListSuccessScreen(state)
             }
-            is MainState.MainStateError -> {
+            is ImageListState.ImageListStateError -> {
                 ImageListErrorScreen(
                     state = state
                 )
             }
-            is MainState.MainStateLoading -> {
+            is ImageListState.ImageListStateLoading -> {
                 ImageListLoadingScreen()
             }
         }
@@ -53,8 +53,8 @@ fun MainScreen(
 fun MainScreenPreview() {
     AppTheme {
         AppSurface {
-            MainScreen(
-                state = MainState.MainStateSuccess(
+            ImageListScreen(
+                state = ImageListState.ImageListStateSuccess(
                     images = listOf(
                         Image(0, 3000, 4000, "0.jpg", "John Doe"),
                         Image(1, 3000, 4000, "1.jpg", "Alice"),
@@ -78,8 +78,8 @@ fun MainScreenPreview() {
 fun MainScreenInDarkModePreview() {
     AppTheme {
         AppSurface {
-            MainScreen(
-                state = MainState.MainStateSuccess(
+            ImageListScreen(
+                state = ImageListState.ImageListStateSuccess(
                     images = listOf(
                         Image(0, 3000, 4000, "0.jpg", "John Doe"),
                         Image(1, 3000, 4000, "1.jpg", "Alice"),

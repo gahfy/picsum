@@ -14,13 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.component.ImageListItem
-import com.resy.picsum.android.ui.main.MainState
 import kotlinx.coroutines.launch
 
 @Suppress("FunctionNaming")
 @Composable
-fun ImageListScreen(
-    state: MainState.MainStateSuccess
+fun ImageListSuccessScreen(
+    state: ImageListState.ImageListStateSuccess
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()

@@ -1,6 +1,5 @@
-package com.resy.picsum.android.ui.main
+package com.resy.picsum.android.ui.imagelist
 
-import android.net.http.HttpException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.resy.picsum.android.BuildConfig
@@ -12,33 +11,30 @@ import com.resy.picsum.data.model.ImageListResult
 import com.resy.picsum.domain.usecase.GetImageListUseCase
 import com.resy.picsum.framework.android.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
-import java.lang.Thread.sleep
 import javax.inject.Inject
 
 /**
- * ViewModel which notifies the view about the state of the main screen.
+ * ViewModel which notifies the view about the state of the image list screen.
  *
  * @property getImageListUseCase The use case to get the list of images
  *
- * @constructor Instantiates a new [MainViewModel].
+ * @constructor Instantiates a new [ImageListViewModel].
  *
  * @param getImageListUseCase The use case to get the list of images to set
  */
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class ImageListViewModel @Inject constructor(
     private val getImageListUseCase: GetImageListUseCase,
     private val resourceProvider: ResourceProvider
 ): ViewModel() {
-    private val _state: MutableStateFlow<MainState> = MutableStateFlow(
-        MainState.MainStateLoading
+    private val _state: MutableStateFlow<ImageListState> = MutableStateFlow(
+        ImageListState.ImageListStateLoading
     )
-    val state: StateFlow<MainState> = _state
+    val state: StateFlow<ImageListState> = _state
 
 
     /**
@@ -65,7 +61,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun setLoadImageStartState() {
-        if(_state.value is MainState.MainStateSuccess) {
+        if(_state.value is ImageListState.ImageListStateSuccess) {
             updateSuccessState()
         } else {
             updateLoadingState()
@@ -74,7 +70,7 @@ class MainViewModel @Inject constructor(
 
     private fun setOnErrorState() {
         val stateValue = _state.value
-        if(stateValue is MainState.MainStateSuccess) {
+        if(stateValue is ImageListState.ImageListStateSuccess) {
             updateSuccessState(errorMessage = Event(
                 resourceProvider.getString(R.string.error_loading)
             ))
@@ -99,13 +95,13 @@ class MainViewModel @Inject constructor(
 
     private fun updateSuccessState(
         images: List<Image> =
-            (_state.value as? MainState.MainStateSuccess)?.images?: listOf(),
+            (_state.value as? ImageListState.ImageListStateSuccess)?.images?: listOf(),
         errorMessage: Event<String>? =
-            (_state.value as? MainState.MainStateSuccess)?.errorMessage,
+            (_state.value as? ImageListState.ImageListStateSuccess)?.errorMessage,
         onErrorActionClick: () -> Unit =
-            (_state.value as? MainState.MainStateSuccess)?.onErrorActionClick ?: ::loadImages
+            (_state.value as? ImageListState.ImageListStateSuccess)?.onErrorActionClick ?: ::loadImages
     ) {
-        _state.value = MainState.MainStateSuccess(
+        _state.value = ImageListState.ImageListStateSuccess(
             images,
             errorMessage,
             onErrorActionClick
@@ -113,14 +109,15 @@ class MainViewModel @Inject constructor(
     }
 
     private fun updateErrorState(
-        onErrorActionClick: () -> Unit = (_state.value as? MainState.MainStateError)?.onErrorActionClick ?: ::loadImages
+        onErrorActionClick: () -> Unit =
+            (_state.value as? ImageListState.ImageListStateError)?.onErrorActionClick ?: ::loadImages
     ) {
-        _state.value = MainState.MainStateError(
+        _state.value = ImageListState.ImageListStateError(
             onErrorActionClick = onErrorActionClick
         )
     }
 
     private fun updateLoadingState() {
-        _state.value = MainState.MainStateLoading
+        _state.value = ImageListState.ImageListStateLoading
     }
 }
