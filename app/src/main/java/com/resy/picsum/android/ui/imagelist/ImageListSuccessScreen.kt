@@ -14,8 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.component.ImageListItem
+import com.resy.picsum.android.ui.component.ImageListItemState
 import kotlinx.coroutines.launch
 
+/**
+ * The screen with the list of images.
+ *
+ * @param state the current state of the view.
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun ImageListSuccessScreen(
@@ -40,7 +46,12 @@ fun ImageListSuccessScreen(
         }
         LazyColumn(Modifier.padding(it)) {
             items(state.images) { item ->
-                ImageListItem(image = item, onImageClick = state.onImageClick)
+                ImageListItem(
+                    ImageListItemState(
+                        image = item,
+                        onImageClick = state.onImageClick
+                    )
+                )
             }
         }
     }

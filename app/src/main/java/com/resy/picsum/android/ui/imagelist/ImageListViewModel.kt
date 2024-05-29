@@ -25,10 +25,16 @@ import java.io.IOException
  * ViewModel which notifies the view about the state of the image list screen.
  *
  * @property getImageListUseCase The use case to get the list of images
+ * @property resourceProvider    The provider to use for getting resources of the application
+ * @property navigateToImage     The action to be called when navigating to an image
+ * @property _state The current state of the view, which can be edited by the ViewModel
+ * @property state The current state of the view that can be subscribed outside of the ViewModel
  *
  * @constructor Instantiates a new [ImageListViewModel].
  *
  * @param getImageListUseCase The use case to get the list of images to set
+ * @param resourceProvider    The provider to use for getting resources of the application to set
+ * @param navigateToImage     The action to be called when navigating to an image to set
  */
 @HiltViewModel(assistedFactory = ImageListViewModel.Factory::class)
 class ImageListViewModel @AssistedInject constructor(

@@ -10,9 +10,9 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * This class contains the list of tests for the main screen
+ * This class contains the list of tests for the image list screen
  */
-class MainScreenTest {
+class ImageListScreenTest {
     @get:Rule val composeTestRule = createComposeRule()
 
     /**

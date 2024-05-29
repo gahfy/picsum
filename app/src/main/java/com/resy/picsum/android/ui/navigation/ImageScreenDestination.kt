@@ -6,6 +6,12 @@ import com.resy.picsum.android.ui.image.ImageScreen
 import com.resy.picsum.android.ui.image.ImageViewModel
 import com.resy.picsum.data.model.Image
 
+/**
+ * Destination element which instantiates the ViewModel and generates the view with the state from
+ * the ViewModel.
+ *
+ * @param image the image to set to the ViewModel
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun ImageScreenDestination(image: Image) {

@@ -14,6 +14,11 @@ import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
 
+/**
+ * The screen to be displayed for errors in image list.
+ *
+ * @param state the state of the view
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun ImageListErrorScreen(

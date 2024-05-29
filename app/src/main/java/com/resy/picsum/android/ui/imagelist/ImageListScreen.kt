@@ -12,8 +12,9 @@ import com.resy.picsum.data.model.Image
 
 
 /**
- * Main screen of the application.
+ * Screen displaying to be used for the list of images.
  *
+ * @param state the state of the image list screen
  * @param modifier The modifier to be applied to the screen.
  */
 @Suppress("FunctionNaming")
@@ -47,7 +48,7 @@ fun ImageListScreen(
     widthDp = 280,
     heightDp = 480
 )
-fun MainScreenPreview() {
+fun ImageListScreenPreview() {
     AppTheme {
         AppSurface {
             ImageListScreen(
@@ -73,7 +74,7 @@ fun MainScreenPreview() {
     heightDp = 480,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
-fun MainScreenInDarkModePreview() {
+fun ImageListScreenInDarkModePreview() {
     AppTheme {
         AppSurface {
             ImageListScreen(

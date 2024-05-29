@@ -9,6 +9,16 @@ This application displays images retrieved from the Picsum API listing.
 As it is not stated that it should display **ONLY** the filename, and as it looked **too empty** to
 my taste when trying the design, I added the author of the image to each row.
 
+### No third-party libraries. Build UI programmatically in Kotlin or using Layout Editor in XML.
+
+Jetpack Compose is not considered a third-party library because it is an official toolkit developed
+and maintained by Google as part of the Android ecosystem. Therefore, even if a project statement
+specifies that the UI should be developed with "No third-party libraries" and built programmatically
+in Kotlin or using the Layout Editor in XML, we will use Jetpack Compose. Its official status,
+seamless integration with other AndroidX libraries, and comprehensive support make it an integral
+part of the Android development environment, justifying its use despite the project's restrictions
+on third-party libraries.
+
 ## Architecture of the application
 
 This application is made of a UI and a data module
