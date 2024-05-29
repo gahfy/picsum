@@ -11,14 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.resy.picsum.android.R
-import com.resy.picsum.android.ui.main.MainState
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
 
+/**
+ * The screen to be displayed for errors in image list.
+ *
+ * @param state the state of the view
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun ImageListErrorScreen(
-    state: MainState.MainStateError
+    state: ImageListState.ImageListStateError
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -51,7 +55,7 @@ fun ImageListErrorScreenPreview() {
     AppTheme {
         AppSurface {
             ImageListErrorScreen(
-                state = MainState.MainStateError {  }
+                state = ImageListState.ImageListStateError {  }
             )
         }
     }

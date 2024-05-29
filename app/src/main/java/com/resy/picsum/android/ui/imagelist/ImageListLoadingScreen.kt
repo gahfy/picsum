@@ -10,6 +10,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
 
+/**
+ * The screen to be displayed for loading the list of images
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun ImageListLoadingScreen() {

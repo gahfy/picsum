@@ -1,6 +1,5 @@
 package com.resy.picsum.domain.usecase
 
-import com.resy.picsum.data.model.Image
 import com.resy.picsum.data.model.ImageListResult
 import com.resy.picsum.data.repository.ImageRepository
 import kotlinx.coroutines.flow.Flow

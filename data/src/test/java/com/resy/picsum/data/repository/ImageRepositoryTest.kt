@@ -20,7 +20,7 @@ class ImageRepositoryTest {
     val localUpdateCalls = mutableListOf<List<Image>>()
     val localDeleteCalls = mutableListOf<List<Image>>()
 
-    val localImageDatasource = object: LocalImageDatasource {
+    private val localImageDatasource = object: LocalImageDatasource {
         override suspend fun getLocalImageList(): List<Image> =
             localImages
 
@@ -47,7 +47,7 @@ class ImageRepositoryTest {
         }
     }
 
-    val remoteImageDatasource = object: RemoteImageDatasource {
+    private val remoteImageDatasource = object: RemoteImageDatasource {
         override suspend fun getRemoteImageList(): List<Image> =
             remoteImages
     }

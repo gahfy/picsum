@@ -1,48 +1,94 @@
 package com.resy.picsum.android.ui.imagelist
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
+import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import com.resy.picsum.android.R
-import com.resy.picsum.android.ui.component.ImageListItem
-import com.resy.picsum.android.ui.main.MainState
-import kotlinx.coroutines.launch
+import androidx.compose.ui.tooling.preview.Preview
+import com.resy.picsum.android.ui.model.Event
+import com.resy.picsum.android.ui.theme.AppSurface
+import com.resy.picsum.android.ui.theme.AppTheme
+import com.resy.picsum.data.model.Image
 
+
+/**
+ * Screen displaying to be used for the list of images.
+ *
+ * @param state the state of the image list screen
+ * @param modifier The modifier to be applied to the screen.
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun ImageListScreen(
-    state: MainState.MainStateSuccess
+    state: ImageListState,
+    modifier: Modifier = Modifier
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
-    Scaffold(
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
-        }
+    Box(
+        modifier = modifier
     ) {
-        state.errorMessage?.collect()?.let {
-            val tryAgainMessage = stringResource(id = R.string.try_again)
-            coroutineScope.launch {
-                snackbarHostState.showSnackbar(
-                    message = it,
-                    actionLabel = tryAgainMessage,
-                    duration = SnackbarDuration.Long
+        when(state) {
+            is ImageListState.ImageListStateSuccess -> {
+                ImageListSuccessScreen(state)
+            }
+            is ImageListState.ImageListStateError -> {
+                ImageListErrorScreen(
+                    state = state
                 )
             }
-        }
-        LazyColumn(Modifier.padding(it)) {
-            items(state.images) { item ->
-                ImageListItem(image = item)
+            is ImageListState.ImageListStateLoading -> {
+                ImageListLoadingScreen()
             }
+        }
+    }
+}
+
+@Suppress("FunctionNaming","MagicNumber")
+@Composable
+@Preview(
+    widthDp = 280,
+    heightDp = 480
+)
+fun ImageListScreenPreview() {
+    AppTheme {
+        AppSurface {
+            ImageListScreen(
+                state = ImageListState.ImageListStateSuccess(
+                    images = listOf(
+                        Image(0, 3000, 4000, "0.jpg", "John Doe"),
+                        Image(1, 3000, 4000, "1.jpg", "Alice"),
+                        Image(2, 3000, 4000, "2.jpg", "Bob"),
+                    ),
+                    errorMessage = Event("Test"),
+                    onErrorActionClick = {},
+                    onImageClick = {}
+                )
+            )
+        }
+    }
+}
+
+@Suppress("FunctionNaming","MagicNumber")
+@Composable
+@Preview(
+    widthDp = 280,
+    heightDp = 480,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+fun ImageListScreenInDarkModePreview() {
+    AppTheme {
+        AppSurface {
+            ImageListScreen(
+                state = ImageListState.ImageListStateSuccess(
+                    images = listOf(
+                        Image(0, 3000, 4000, "0.jpg", "John Doe"),
+                        Image(1, 3000, 4000, "1.jpg", "Alice"),
+                        Image(2, 3000, 4000, "2.jpg", "Bob"),
+                    ),
+                    errorMessage = null,
+                    onErrorActionClick = {},
+                    onImageClick = {}
+                )
+            )
         }
     }
 }

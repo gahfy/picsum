@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.main
+package com.resy.picsum.android.ui.imagelist
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -10,9 +10,9 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * This class contains the list of tests for the main screen
+ * This class contains the list of tests for the image list screen
  */
-class MainScreenTest {
+class ImageListScreenTest {
     @get:Rule val composeTestRule = createComposeRule()
 
     /**
@@ -23,13 +23,14 @@ class MainScreenTest {
         composeTestRule.setContent {
             AppTheme {
                 AppSurface {
-                    MainScreen(
-                        MainState.MainStateSuccess(
+                    ImageListScreen(
+                        ImageListState.ImageListStateSuccess(
                             images = listOf(
                                 Image(0, 3000, 4000, "0.jpg", "John Doe")
                             ),
                             errorMessage = null,
-                            onErrorActionClick = {}
+                            onErrorActionClick = {},
+                            onImageClick = {}
                         )
                     )
                 }

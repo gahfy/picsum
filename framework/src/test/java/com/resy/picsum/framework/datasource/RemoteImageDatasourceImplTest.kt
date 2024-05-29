@@ -3,7 +3,6 @@ package com.resy.picsum.framework.datasource
 import com.resy.picsum.data.model.Image
 import com.resy.picsum.framework.api.model.ApiImage
 import com.resy.picsum.framework.api.service.PicsumApiService
-import com.resy.picsum.framework.database.entity.ImageDbEntity
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -54,7 +53,7 @@ class RemoteImageDatasourceImplTest {
 
     }
 
-    val api = object: PicsumApiService {
+    private val api = object: PicsumApiService {
         override suspend fun getImageList(): List<ApiImage> {
             return remoteImages
         }

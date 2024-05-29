@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.main
+package com.resy.picsum.android.ui.imagelist
 
 import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.model.Event
@@ -9,27 +9,19 @@ import com.resy.picsum.domain.usecase.GetImageListUseCase
 import com.resy.picsum.framework.android.ResourceProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kotlinx.coroutines.withContext
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import java.lang.Thread.sleep
 import java.net.UnknownHostException
 
-class MainViewModelTest {
-    val resourceProvider = object: ResourceProvider {
+class ImageViewModelTest {
+    private val resourceProvider = object: ResourceProvider {
         override fun getString(resId: Int): String {
             return resId.toString()
         }
@@ -45,40 +37,31 @@ class MainViewModelTest {
     fun testErrorAfterLoading() = runTest {
         val loadingThenErrorUseCase = object:GetImageListUseCase {
             override suspend fun invoke() = flow {
-                withContext(Dispatchers.IO) {
-                    sleep(200)
-                }
                 emit(
                     ImageListResult(
                         datasource = Datasource.LOCAL,
                         result = listOf()
                     )
                 )
-                withContext(Dispatchers.IO) {
-                    sleep(200)
-                }
                 throw UnknownHostException()
             }
         }
 
-        val viewModel = MainViewModel(
+        val viewModel = ImageListViewModel(
             getImageListUseCase = loadingThenErrorUseCase,
-            resourceProvider = resourceProvider
+            resourceProvider = resourceProvider,
+            navigateToImage = {}
         )
 
-        val states = viewModel.state.take(2).toList()
+        val state = viewModel.state.value
 
-        assertTrue("First state should be loading state", states[0] is MainState.MainStateLoading)
-        assertTrue("Second state should be error state", states[1] is MainState.MainStateError)
+        assertTrue("State should be error state $state", state is ImageListState.ImageListStateError)
     }
 
     @Test
     fun testErrorAfterSuccess() = runTest {
         val loadingThenErrorUseCase = object:GetImageListUseCase {
             override suspend fun invoke() = flow {
-                withContext(Dispatchers.IO) {
-                    sleep(200)
-                }
                 emit(
                     ImageListResult(
                         datasource = Datasource.LOCAL,
@@ -87,28 +70,26 @@ class MainViewModelTest {
                         )
                     )
                 )
-                withContext(Dispatchers.IO) {
-                    sleep(200)
-                }
                 throw UnknownHostException()
             }
         }
 
-        val viewModel = MainViewModel(
+        val viewModel = ImageListViewModel(
             getImageListUseCase = loadingThenErrorUseCase,
-            resourceProvider = resourceProvider
+            resourceProvider = resourceProvider,
+            navigateToImage = {}
         )
 
-        val states = viewModel.state.take(3).toList()
+        val state = viewModel.state.value
 
-        assertTrue("First state should be loading state", states[0] is MainState.MainStateLoading)
-        assertTrue("Second state should be success state", states[1] is MainState.MainStateSuccess)
-        assertNull("Second state should not have error", (states[1] as MainState.MainStateSuccess).errorMessage)
-        assertTrue("Third state should be success state", states[2] is MainState.MainStateSuccess)
+        assertTrue(
+            "State should be success state",
+            state is ImageListState.ImageListStateSuccess
+        )
         assertEquals(
-            "Third state should have error",
+            "State should have error",
             Event(R.string.error_loading.toString()),
-            (states[2] as MainState.MainStateSuccess).errorMessage
+            (state as ImageListState.ImageListStateSuccess).errorMessage
         )
     }
 
@@ -116,18 +97,12 @@ class MainViewModelTest {
     fun testSuccessAfterLoading() = runTest {
         val loadingThenErrorUseCase = object:GetImageListUseCase {
             override suspend fun invoke() = flow {
-                withContext(Dispatchers.IO) {
-                    sleep(200)
-                }
                 emit(
                     ImageListResult(
                         datasource = Datasource.LOCAL,
                         result = listOf()
                     )
                 )
-                withContext(Dispatchers.IO) {
-                    sleep(200)
-                }
                 emit(
                     ImageListResult(
                         datasource = Datasource.REMOTE,
@@ -139,15 +114,21 @@ class MainViewModelTest {
             }
         }
 
-        val viewModel = MainViewModel(
+        val viewModel = ImageListViewModel(
             getImageListUseCase = loadingThenErrorUseCase,
-            resourceProvider = resourceProvider
+            resourceProvider = resourceProvider,
+            navigateToImage = {}
         )
 
-        val states = viewModel.state.take(2).toList()
+        val state = viewModel.state.value
 
-        assertTrue("First state should be loading state", states[0] is MainState.MainStateLoading)
-        assertTrue("Second state should be success state", states[1] is MainState.MainStateSuccess)
-        assertNull("Second state should not have error", (states[1] as MainState.MainStateSuccess).errorMessage)
+        assertTrue(
+            "State should be success state",
+            state is ImageListState.ImageListStateSuccess
+        )
+        assertNull(
+            "State should not have error",
+            (state as ImageListState.ImageListStateSuccess).errorMessage
+        )
     }
 }
