@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.main
+package com.resy.picsum.android.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
