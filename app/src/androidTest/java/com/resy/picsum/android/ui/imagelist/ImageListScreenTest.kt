@@ -29,7 +29,8 @@ class MainScreenTest {
                                 Image(0, 3000, 4000, "0.jpg", "John Doe")
                             ),
                             errorMessage = null,
-                            onErrorActionClick = {}
+                            onErrorActionClick = {},
+                            onImageClick = {}
                         )
                     )
                 }

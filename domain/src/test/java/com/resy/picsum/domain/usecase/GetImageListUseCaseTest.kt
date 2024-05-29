@@ -52,7 +52,7 @@ class GetImageListUseCaseTest {
         )
     }
 
-    val repository = object: ImageRepository {
+    private val repository = object: ImageRepository {
         override fun getImages(): Flow<ImageListResult> =
             flow {
                 repositoryImages.forEach {

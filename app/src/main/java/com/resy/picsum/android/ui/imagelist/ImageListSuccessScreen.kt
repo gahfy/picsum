@@ -40,7 +40,7 @@ fun ImageListSuccessScreen(
         }
         LazyColumn(Modifier.padding(it)) {
             items(state.images) { item ->
-                ImageListItem(image = item)
+                ImageListItem(image = item, onImageClick = state.onImageClick)
             }
         }
     }

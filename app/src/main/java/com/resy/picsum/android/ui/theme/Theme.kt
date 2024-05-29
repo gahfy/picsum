@@ -87,8 +87,6 @@ fun AppTheme(
  * it as a background.
  *
  * @param modifier         the modifier to apply to the Surface.
- * @param useDarkTheme     whether to use dark mode or not
- * @param useDynamicColors whether to use material dynamic colors or not
  * @param content          the content to put in the surface
  */
 @Suppress("FunctionNaming")

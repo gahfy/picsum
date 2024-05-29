@@ -11,7 +11,7 @@ import org.junit.Before
 import org.junit.Test
 
 class LocalImageDatasourceImplTest {
-    private val imageEntities: MutableList<ImageDbEntity> = mutableListOf<ImageDbEntity>()
+    private val imageEntities: MutableList<ImageDbEntity> = mutableListOf()
 
     @Before
     fun setup() {

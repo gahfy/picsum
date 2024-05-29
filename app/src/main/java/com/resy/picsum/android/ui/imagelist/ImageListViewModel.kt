@@ -1,6 +1,10 @@
 package com.resy.picsum.android.ui.imagelist
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.resy.picsum.android.BuildConfig
 import com.resy.picsum.android.R
@@ -10,12 +14,12 @@ import com.resy.picsum.data.model.Image
 import com.resy.picsum.data.model.ImageListResult
 import com.resy.picsum.domain.usecase.GetImageListUseCase
 import com.resy.picsum.framework.android.ResourceProvider
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.IOException
-import javax.inject.Inject
 
 /**
  * ViewModel which notifies the view about the state of the image list screen.
@@ -26,15 +30,16 @@ import javax.inject.Inject
  *
  * @param getImageListUseCase The use case to get the list of images to set
  */
-@HiltViewModel
-class ImageListViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = ImageListViewModel.Factory::class)
+class ImageListViewModel @AssistedInject constructor(
     private val getImageListUseCase: GetImageListUseCase,
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
+    @Assisted private val navigateToImage: (Image) -> Unit
 ): ViewModel() {
-    private val _state: MutableStateFlow<ImageListState> = MutableStateFlow(
+    private val _state: MutableState<ImageListState> = mutableStateOf(
         ImageListState.ImageListStateLoading
     )
-    val state: StateFlow<ImageListState> = _state
+    val state: State<ImageListState> = _state
 
 
     /**
@@ -104,8 +109,13 @@ class ImageListViewModel @Inject constructor(
         _state.value = ImageListState.ImageListStateSuccess(
             images,
             errorMessage,
-            onErrorActionClick
+            onErrorActionClick,
+            ::onImageClick
         )
+    }
+
+    private fun onImageClick(image: Image) {
+        navigateToImage(image)
     }
 
     private fun updateErrorState(
@@ -119,5 +129,25 @@ class ImageListViewModel @Inject constructor(
 
     private fun updateLoadingState() {
         _state.value = ImageListState.ImageListStateLoading
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            @Assisted navigateToImage: (Image) -> Unit
+        ): ImageListViewModel
+    }
+
+    companion object {
+        @Suppress("UNCHECKED_CAST", "unused")
+        fun provideFactory(
+            assistedFactory: Factory, // this is the Factory interface
+            // declared above
+            navigateToImage: (Image) -> Unit
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return assistedFactory.create(navigateToImage) as T
+            }
+        }
     }
 }

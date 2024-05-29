@@ -10,7 +10,7 @@ sealed class ImageListState {
     /**
      * UI state for the image list screen when it is loading
      */
-    object ImageListStateLoading: ImageListState()
+    data object ImageListStateLoading: ImageListState()
 
     /**
      * UI state for the image list screen when it is successfully loaded
@@ -18,7 +18,8 @@ sealed class ImageListState {
     data class ImageListStateSuccess(
         val images: List<Image>,
         val errorMessage: Event<String>? = null,
-        val onErrorActionClick: () -> Unit
+        val onErrorActionClick: () -> Unit,
+        val onImageClick: (Image) -> Unit
     ): ImageListState()
 
     /**

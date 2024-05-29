@@ -1,6 +1,7 @@
 package com.resy.picsum.android.ui.component
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,10 +21,14 @@ import com.resy.picsum.data.model.Image
 @Composable
 fun ImageListItem(
     image: Image,
+    onImageClick: (Image) -> Unit,
     modifier: Modifier = Modifier
 ) {
     ListItem(
-        modifier = modifier,
+        modifier = modifier
+            .clickable {
+                onImageClick(image)
+            },
         headlineContent = {
             Text(
                 image.filename
@@ -44,7 +49,8 @@ fun ImageListItemPreview() {
     AppTheme {
         AppSurface {
             ImageListItem(
-                image = Image(0, 1000, 2000, "0.jpg", "John Doe")
+                image = Image(0, 1000, 2000, "0.jpg", "John Doe"),
+                onImageClick = {}
             )
         }
     }
@@ -59,7 +65,8 @@ fun ImageListItemPreviewDark() {
     AppTheme {
         AppSurface {
             ImageListItem(
-                image = Image(0, 1000, 2000, "0.JPG", "John Doe")
+                image = Image(0, 1000, 2000, "0.JPG", "John Doe"),
+                onImageClick = {}
             )
         }
     }

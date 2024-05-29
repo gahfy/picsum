@@ -68,12 +68,14 @@ dependencies {
     implementation(libs.compose.activities)
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.test.manifest)
+    implementation(libs.navigation)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
 
     implementation(libs.daggerHilt)
     ksp(libs.daggerCompiler)
+    implementation(libs.daggerHilt.navigation.compose)
 
     testImplementation(libs.coroutines.test)
 }

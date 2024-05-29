@@ -5,9 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.resy.picsum.android.ui.imagelist.ImageListErrorScreen
-import com.resy.picsum.android.ui.imagelist.ImageListLoadingScreen
-import com.resy.picsum.android.ui.imagelist.ImageListScreen
 import com.resy.picsum.android.ui.model.Event
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
@@ -61,7 +58,8 @@ fun MainScreenPreview() {
                         Image(2, 3000, 4000, "2.jpg", "Bob"),
                     ),
                     errorMessage = Event("Test"),
-                    onErrorActionClick = {}
+                    onErrorActionClick = {},
+                    onImageClick = {}
                 )
             )
         }
@@ -86,7 +84,8 @@ fun MainScreenInDarkModePreview() {
                         Image(2, 3000, 4000, "2.jpg", "Bob"),
                     ),
                     errorMessage = null,
-                    onErrorActionClick = {}
+                    onErrorActionClick = {},
+                    onImageClick = {}
                 )
             )
         }

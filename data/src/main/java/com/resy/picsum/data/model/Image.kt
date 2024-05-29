@@ -1,5 +1,7 @@
 package com.resy.picsum.data.model
 
+import java.io.Serializable
+
 /**
  * Model which represents an Image as it is used in the application.
  *
@@ -17,10 +19,11 @@ package com.resy.picsum.data.model
  * @param filename the name of the image file to set
  * @param author   the name of the author of the image to set
  */
+@Suppress("SerialVersionUIDInSerializableClass")
 data class Image(
     val id: Long,
     val width: Int,
     val height: Int,
     val filename: String,
     val author: String
-)
+): Serializable
