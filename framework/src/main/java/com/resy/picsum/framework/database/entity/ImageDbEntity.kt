@@ -12,6 +12,7 @@ import com.resy.picsum.data.model.Image
  * @property height   the height (in pixels) of the image
  * @property filename the name of the image file
  * @property author   the name of the author of the image
+ * @property type     the type of file (png, jpg, ...) of the image
  *
  * @constructor Instantiates a new [ImageDbEntity].
  *
@@ -20,6 +21,7 @@ import com.resy.picsum.data.model.Image
  * @param height   the height (in pixels) of the image to set
  * @param filename the name of the image file to set
  * @param author   the name of the author of the image to set
+ * @param type     the type of file (png, jpg, ...) of the image to set
  */
 @Entity
 data class ImageDbEntity(
@@ -28,7 +30,8 @@ data class ImageDbEntity(
     val width: Int,
     val height: Int,
     val filename: String,
-    val author: String
+    val author: String,
+    val type: String
 ) {
     /**
      * Instantiates a new [ImageDbEntity] with data from the given [Image].
@@ -40,7 +43,8 @@ data class ImageDbEntity(
         width = image.width,
         height = image.height,
         filename = image.filename,
-        author = image.author
+        author = image.author,
+        type = image.type
     )
 
     /**
@@ -53,6 +57,7 @@ data class ImageDbEntity(
         width = width,
         height = height,
         filename = filename,
-        author = author
+        author = author,
+        type = type
     )
 }

@@ -39,8 +39,8 @@ class RemoteImageDatasourceImplTest {
             "http://authorSite1",
             "http://postSite1"
         )
-        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val image1 = Image(1, 4000, 2000, "1.png", "John Doe")
+        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val image1 = Image(1, 4000, 2000, "1.png", "John Doe", "png")
 
         remoteImages.addAll(listOf(apiImage0, apiImage1))
         val remoteImageDatasourceImpl = RemoteImageDatasourceImpl(api)

@@ -7,7 +7,7 @@ import org.junit.Test
 class ImageDbEntityTest {
     @Test
     fun testImageDbEntityFromImage() {
-        val image = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
+        val image = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
 
         val imageDbEntity = ImageDbEntity(image)
 
@@ -20,7 +20,7 @@ class ImageDbEntityTest {
 
     @Test
     fun testImageDbEntityToImage() {
-        val imageDbEntity = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
+        val imageDbEntity = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
         val image = imageDbEntity.toImage()
 
         assertEquals("Identifiers should be equal", imageDbEntity.id, image.id)

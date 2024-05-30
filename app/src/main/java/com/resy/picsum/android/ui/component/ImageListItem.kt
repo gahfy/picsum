@@ -49,7 +49,7 @@ fun ImageListItemPreview() {
         AppSurface {
             ImageListItem(
                 ImageListItemState(
-                    image = Image(0, 1000, 2000, "0.jpg", "John Doe"),
+                    image = Image(0, 1000, 2000, "0.jpg", "John Doe", "jpg"),
                     onImageClick = {}
                 )
             )
@@ -67,7 +67,7 @@ fun ImageListItemPreviewDark() {
         AppSurface {
             ImageListItem(
                 ImageListItemState(
-                    image = Image(0, 1000, 2000, "0.JPG", "John Doe"),
+                    image = Image(0, 1000, 2000, "0.JPG", "John Doe", "jpg"),
                     onImageClick = {}
                 )
             )

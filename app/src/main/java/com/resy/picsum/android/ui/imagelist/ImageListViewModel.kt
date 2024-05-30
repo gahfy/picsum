@@ -20,6 +20,7 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
 /**
  * ViewModel which notifies the view about the state of the image list screen.
@@ -36,11 +37,10 @@ import java.io.IOException
  * @param resourceProvider    The provider to use for getting resources of the application to set
  * @param navigateToImage     The action to be called when navigating to an image to set
  */
-@HiltViewModel(assistedFactory = ImageListViewModel.Factory::class)
-class ImageListViewModel @AssistedInject constructor(
+@HiltViewModel
+class ImageListViewModel @Inject constructor(
     private val getImageListUseCase: GetImageListUseCase,
-    private val resourceProvider: ResourceProvider,
-    @Assisted private val navigateToImage: (Image) -> Unit
+    private val resourceProvider: ResourceProvider
 ): ViewModel() {
     private val _state: MutableState<ImageListState> = mutableStateOf(
         ImageListState.ImageListStateLoading
@@ -115,13 +115,8 @@ class ImageListViewModel @AssistedInject constructor(
         _state.value = ImageListState.ImageListStateSuccess(
             images,
             errorMessage,
-            onErrorActionClick,
-            ::onImageClick
+            onErrorActionClick
         )
-    }
-
-    private fun onImageClick(image: Image) {
-        navigateToImage(image)
     }
 
     private fun updateErrorState(
@@ -135,25 +130,5 @@ class ImageListViewModel @AssistedInject constructor(
 
     private fun updateLoadingState() {
         _state.value = ImageListState.ImageListStateLoading
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(
-            @Assisted navigateToImage: (Image) -> Unit
-        ): ImageListViewModel
-    }
-
-    companion object {
-        @Suppress("UNCHECKED_CAST", "unused")
-        fun provideFactory(
-            assistedFactory: Factory, // this is the Factory interface
-            // declared above
-            navigateToImage: (Image) -> Unit
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(navigateToImage) as T
-            }
-        }
     }
 }

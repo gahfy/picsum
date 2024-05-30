@@ -18,8 +18,7 @@ sealed class ImageListState {
     data class ImageListStateSuccess(
         val images: List<Image>,
         val errorMessage: Event<String>? = null,
-        val onErrorActionClick: () -> Unit,
-        val onImageClick: (Image) -> Unit
+        val onErrorActionClick: () -> Unit
     ): ImageListState()
 
     /**

@@ -15,12 +15,11 @@ import com.resy.picsum.android.ui.imagelist.ImageListViewModel
 @Suppress("FunctionNaming")
 @Composable
 fun ImageListScreenDestination(navController: NavController) {
-    val viewModel = hiltViewModel<ImageListViewModel, ImageListViewModel.Factory> { factory ->
-        factory.create { image ->
-            navController.navigateToImage(image)
-        }
-    }
+    val viewModel = hiltViewModel<ImageListViewModel>()
     ImageListScreen(
-        state = viewModel.state.value
+        state = viewModel.state.value,
+        onNavigateToImage = {
+            image -> navController.navigateToImage(image)
+        }
     )
 }

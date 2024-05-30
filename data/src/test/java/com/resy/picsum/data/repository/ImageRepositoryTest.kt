@@ -63,11 +63,11 @@ class ImageRepositoryTest {
 
     @Test
     fun testGetImages() = runTest {
-        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val image1 = Image(1, 5000, 3333, "1.jpeg", "Alejandro Escamilla")
-        val image2 = Image(2, 5000, 3333, "2.jpeg", "Alejandro Escamilla")
-        val image2Updated = Image(2, 4000, 3333, "2.jpeg", "Alejandro Escamilla")
-        val image3 = Image(3, 5000, 3333, "3.jpeg", "Alejandro Escamilla")
+        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val image1 = Image(1, 5000, 3333, "1.jpeg", "Alejandro Escamilla", "jpeg")
+        val image2 = Image(2, 5000, 3333, "2.jpeg", "Alejandro Escamilla", "jpeg")
+        val image2Updated = Image(2, 4000, 3333, "2.jpeg", "Alejandro Escamilla", "jpeg")
+        val image3 = Image(3, 5000, 3333, "3.jpeg", "Alejandro Escamilla", "jpeg")
         localImages.add(image0)
         localImages.add(image1)
         localImages.add(image2)

@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.component.ImageListItem
 import com.resy.picsum.android.ui.component.ImageListItemState
+import com.resy.picsum.data.model.Image
 import kotlinx.coroutines.launch
 
 /**
@@ -25,7 +26,8 @@ import kotlinx.coroutines.launch
 @Suppress("FunctionNaming")
 @Composable
 fun ImageListSuccessScreen(
-    state: ImageListState.ImageListStateSuccess
+    state: ImageListState.ImageListStateSuccess,
+    onNavigateToImage: (Image) -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -49,7 +51,7 @@ fun ImageListSuccessScreen(
                 ImageListItem(
                     ImageListItemState(
                         image = item,
-                        onImageClick = state.onImageClick
+                        onImageClick = onNavigateToImage
                     )
                 )
             }

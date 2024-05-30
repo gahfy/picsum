@@ -1,5 +1,6 @@
 package com.resy.picsum.framework.di
 
+import android.net.TrafficStats
 import com.resy.picsum.framework.api.service.PicsumApiService
 import com.resy.picsum.framework.BuildConfig
 import dagger.Module
@@ -33,10 +34,7 @@ internal object NetworkModule {
     fun provideLoggingInterceptor(): Interceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(
-            if(BuildConfig.DEBUG)
-                HttpLoggingInterceptor.Level.BODY
-            else
-                HttpLoggingInterceptor.Level.NONE
+            HttpLoggingInterceptor.Level.BODY
         )
         return interceptor
     }
@@ -52,11 +50,14 @@ internal object NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         @Named("logging") loggingInterceptor: Interceptor
-    ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    addInterceptor(loggingInterceptor)
+                }
+            }
             .build()
-    }
 
     /**
      * Provides the Retrofit instance to be used in the application.

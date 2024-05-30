@@ -1,4 +1,4 @@
-package com.resy.picsum.android.ui.imagelist
+package com.resy.picsum.android.ui.image
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
 import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.theme.AppSurface
 import com.resy.picsum.android.ui.theme.AppTheme
@@ -22,8 +21,8 @@ import com.resy.picsum.android.ui.theme.AppTheme
  */
 @Suppress("FunctionNaming")
 @Composable
-fun ImageListErrorScreen(
-    state: ImageListState.ImageListStateError
+fun ImageErrorScreen(
+    state: ImageState.ImageErrorState
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -36,7 +35,7 @@ fun ImageListErrorScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.cant_load_images)
+                    text = stringResource(id = R.string.cant_load_image)
                 )
 
                 TextButton(onClick = state.onErrorActionClick) {
@@ -52,11 +51,14 @@ fun ImageListErrorScreen(
 @Suppress("FunctionNaming")
 @Preview
 @Composable
-fun ImageListErrorScreenPreview() {
+fun ImageErrorScreenPreview() {
     AppTheme {
         AppSurface {
-            ImageListErrorScreen(
-                state = ImageListState.ImageListStateError {  }
+            ImageErrorScreen(
+                state = ImageState.ImageErrorState(
+                    {},
+                    {_, _, _ -> }
+                )
             )
         }
     }

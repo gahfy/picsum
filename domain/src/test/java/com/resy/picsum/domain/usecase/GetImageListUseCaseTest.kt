@@ -26,15 +26,15 @@ class GetImageListUseCaseTest {
             ImageListResult(
                 datasource = Datasource.LOCAL,
                 result = listOf(
-                    Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla"),
-                    Image(1, 4000, 2000, "1.jpeg", "John Doe")
+                    Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg"),
+                    Image(1, 4000, 2000, "1.jpeg", "John Doe", "jpeg")
                 )
             ),
             ImageListResult(
                 datasource = Datasource.REMOTE,
                 result = listOf(
-                    Image(2, 3000, 1000, "2.jpeg", "Alice"),
-                    Image(3, 2000, 6000, "3.jpeg", "Bob")
+                    Image(2, 3000, 1000, "2.jpeg", "Alice", "jpeg"),
+                    Image(3, 2000, 6000, "3.jpeg", "Bob", "jpeg")
                 )
             )
         )

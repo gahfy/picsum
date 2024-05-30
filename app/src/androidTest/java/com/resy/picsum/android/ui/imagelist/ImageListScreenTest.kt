@@ -26,12 +26,12 @@ class ImageListScreenTest {
                     ImageListScreen(
                         ImageListState.ImageListStateSuccess(
                             images = listOf(
-                                Image(0, 3000, 4000, "0.jpg", "John Doe")
+                                Image(0, 3000, 4000, "0.jpg", "John Doe", "jpeg")
                             ),
                             errorMessage = null,
                             onErrorActionClick = {},
-                            onImageClick = {}
-                        )
+                        ),
+                        onNavigateToImage = {}
                     )
                 }
             }

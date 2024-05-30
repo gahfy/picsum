@@ -65,6 +65,7 @@ data class ApiImage(
         width = width,
         height = height,
         filename = filename,
-        author = author
+        author = author,
+        type = format
     )
 }

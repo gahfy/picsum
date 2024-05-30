@@ -21,6 +21,7 @@ import com.resy.picsum.data.model.Image
 @Composable
 fun ImageListScreen(
     state: ImageListState,
+    onNavigateToImage: (Image) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -28,7 +29,7 @@ fun ImageListScreen(
     ) {
         when(state) {
             is ImageListState.ImageListStateSuccess -> {
-                ImageListSuccessScreen(state)
+                ImageListSuccessScreen(state, onNavigateToImage)
             }
             is ImageListState.ImageListStateError -> {
                 ImageListErrorScreen(
@@ -54,14 +55,14 @@ fun ImageListScreenPreview() {
             ImageListScreen(
                 state = ImageListState.ImageListStateSuccess(
                     images = listOf(
-                        Image(0, 3000, 4000, "0.jpg", "John Doe"),
-                        Image(1, 3000, 4000, "1.jpg", "Alice"),
-                        Image(2, 3000, 4000, "2.jpg", "Bob"),
+                        Image(0, 3000, 4000, "0.jpg", "John Doe", "jpg"),
+                        Image(1, 3000, 4000, "1.jpg", "Alice", "jpg"),
+                        Image(2, 3000, 4000, "2.jpg", "Bob", "jpg"),
                     ),
                     errorMessage = Event("Test"),
-                    onErrorActionClick = {},
-                    onImageClick = {}
-                )
+                    onErrorActionClick = {}
+                ),
+                onNavigateToImage = {}
             )
         }
     }
@@ -80,14 +81,14 @@ fun ImageListScreenInDarkModePreview() {
             ImageListScreen(
                 state = ImageListState.ImageListStateSuccess(
                     images = listOf(
-                        Image(0, 3000, 4000, "0.jpg", "John Doe"),
-                        Image(1, 3000, 4000, "1.jpg", "Alice"),
-                        Image(2, 3000, 4000, "2.jpg", "Bob"),
+                        Image(0, 3000, 4000, "0.jpg", "John Doe", "jpg"),
+                        Image(1, 3000, 4000, "1.jpg", "Alice", "jpg"),
+                        Image(2, 3000, 4000, "2.jpg", "Bob", "jpg"),
                     ),
                     errorMessage = null,
-                    onErrorActionClick = {},
-                    onImageClick = {}
-                )
+                    onErrorActionClick = {}
+                ),
+                onNavigateToImage = {}
             )
         }
     }

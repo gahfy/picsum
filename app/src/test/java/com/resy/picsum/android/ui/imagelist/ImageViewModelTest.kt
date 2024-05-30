@@ -49,8 +49,7 @@ class ImageViewModelTest {
 
         val viewModel = ImageListViewModel(
             getImageListUseCase = loadingThenErrorUseCase,
-            resourceProvider = resourceProvider,
-            navigateToImage = {}
+            resourceProvider = resourceProvider
         )
 
         val state = viewModel.state.value
@@ -66,7 +65,7 @@ class ImageViewModelTest {
                     ImageListResult(
                         datasource = Datasource.LOCAL,
                         result = listOf(
-                            Image(0, 2000, 3000, "0.jpg", "John Doe")
+                            Image(0, 2000, 3000, "0.jpg", "John Doe", "jpeg")
                         )
                     )
                 )
@@ -76,8 +75,7 @@ class ImageViewModelTest {
 
         val viewModel = ImageListViewModel(
             getImageListUseCase = loadingThenErrorUseCase,
-            resourceProvider = resourceProvider,
-            navigateToImage = {}
+            resourceProvider = resourceProvider
         )
 
         val state = viewModel.state.value
@@ -107,7 +105,7 @@ class ImageViewModelTest {
                     ImageListResult(
                         datasource = Datasource.REMOTE,
                         result = listOf(
-                            Image(0, 2000, 3000, "0.jpg", "John Doe")
+                            Image(0, 2000, 3000, "0.jpg", "John Doe", "jpeg")
                         )
                     )
                 )
@@ -116,8 +114,7 @@ class ImageViewModelTest {
 
         val viewModel = ImageListViewModel(
             getImageListUseCase = loadingThenErrorUseCase,
-            resourceProvider = resourceProvider,
-            navigateToImage = {}
+            resourceProvider = resourceProvider
         )
 
         val state = viewModel.state.value
