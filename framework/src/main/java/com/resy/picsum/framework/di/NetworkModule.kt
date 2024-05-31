@@ -19,7 +19,7 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NetworkModule {
+object NetworkModule {
     /**
      * Provides the logging interceptor for HTTP requests and responses.
      *

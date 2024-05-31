@@ -1,35 +1,68 @@
 package com.resy.picsum.android.ui.imagelist
 
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
-import com.resy.picsum.android.ui.theme.AppSurface
-import com.resy.picsum.android.ui.theme.AppTheme
-import com.resy.picsum.data.model.Image
+import androidx.compose.ui.test.performClick
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.resy.picsum.android.ui.MainActivity
+import com.resy.picsum.framework.api.model.ApiImage
+import com.resy.picsum.framework.api.service.PicsumApiService
+import com.resy.picsum.framework.di.NetworkModule
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
+import dagger.hilt.components.SingletonComponent
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import javax.inject.Singleton
 
+@UninstallModules(
+    NetworkModule::class
+)
+@HiltAndroidTest
+@RunWith(AndroidJUnit4::class)
 class ImageListScreenTest {
-    @get:Rule val composeTestRule = createComposeRule()
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
+
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
     @Test
     fun testMainScreen() {
-        composeTestRule.setContent {
-            AppTheme {
-                AppSurface {
-                    ImageListScreen(
-                        ImageListState.ImageListStateSuccess(
-                            images = listOf(
-                                Image(0, 3000, 4000, "0.jpg", "John Doe", "jpeg")
-                            ),
-                            errorMessage = null,
-                            onErrorActionClick = {},
-                        ),
-                        onNavigateToImage = {}
-                    )
-                }
-            }
+        composeTestRule.waitUntil {
+            composeTestRule.onAllNodesWithText("test.jpeg").fetchSemanticsNodes().isNotEmpty()
         }
-        composeTestRule.onNodeWithText("John Doe").assertIsDisplayed()
+        composeTestRule.onNodeWithText("test.jpeg").performClick()
+    }
+
+    @Module
+    @InstallIn(SingletonComponent::class)
+    class FakeBaseUrlModule {
+
+        @Provides
+        @Singleton
+        fun providePicsumApiService(): PicsumApiService = object: PicsumApiService {
+            override suspend fun getImageList(): List<ApiImage> {
+                return listOf(
+                    ApiImage(
+                        id = 0,
+                        format = "jpeg",
+                        width = 100,
+                        height = 100,
+                        filename = "test.jpeg",
+                        author = "John Doe",
+                        authorUrl = "https://www.someurl.com",
+                        postUrl = "https://www.someurl.com"
+                    )
+                )
+            }
+
+        }
     }
 }
