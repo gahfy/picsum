@@ -60,9 +60,7 @@ fun ImageScreen(
         modifier = Modifier
             .fillMaxSize()
             .clickable(indication = null, interactionSource = interactionSource) {
-                if ((state as? ImageState.ImageSuccessState)?.orientation == Orientation.PORTRAIT) {
-                    isBackVisible = !isBackVisible
-                }
+                isBackVisible = !isBackVisible
             }
     ) {
         Box {

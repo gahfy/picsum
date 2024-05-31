@@ -51,7 +51,7 @@ class CachedFileDatasourceImpl(
         val cachedFile = withContext(Dispatchers.IO) { cachedFileDao.getCachedFile(urlString) }
         if(cachedFile != null) {
             val file = File(context.cacheDir, cachedFile.filename)
-            if (file.exists()) {
+            if (withContext(Dispatchers.IO) { file.exists() }) {
                 return cachedFile.toCachedFile()
             } else {
                 withContext(Dispatchers.IO) {
