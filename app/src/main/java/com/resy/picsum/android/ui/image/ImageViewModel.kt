@@ -70,7 +70,7 @@ class ImageViewModel @AssistedInject constructor(
             this.density = density
             // If the image will be wider, we need to download it again, otherwise, we just change
             // the state
-            if(width > (imageWidth?:0)) {
+            if(_state.value !is ImageState.ImageSuccessState || width > (imageWidth?:0)) {
                 downloadImage()
             } else {
                 updateSuccessState(

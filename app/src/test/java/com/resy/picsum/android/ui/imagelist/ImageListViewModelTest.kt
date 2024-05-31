@@ -20,7 +20,7 @@ import org.junit.Before
 import org.junit.Test
 import java.net.UnknownHostException
 
-class ImageViewModelTest {
+class ImageListViewModelTest {
     private val resourceProvider = object: ResourceProvider {
         override fun getString(resId: Int): String {
             return resId.toString()
