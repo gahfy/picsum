@@ -9,7 +9,7 @@ different layout depending on the image dimensions.
 <img src="doc/img/demo_app.gif" alt="demo" width="200"/>
 
 The apk of the last version (1.0) of the application can be found in
-[Version 1.0](releases/tag/v1.0)
+[Version 1.0](https://github.com/gahfy/picsum/releases/tag/v1.0)
 
 ## Features
 
