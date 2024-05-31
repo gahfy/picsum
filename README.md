@@ -1,73 +1,93 @@
 # Picsum Android application
 
-This application displays images retrieved from the Picsum API listing.
+![Android](https://github.com/gahfy/picsum/actions/workflows/android.yml/badge.svg)
 
-## Assumptions
+Picsum is an Android application that lists images from the
+[Picsum](https://picsum.photos/) REST API and displays each image with a
+different layout depending on the image dimensions.
 
-### Each row should display the filename of the corresponding image.
+<img src="doc/img/demo_app.gif" alt="demo" width="200"/>
 
-As it is not stated that it should display **ONLY** the filename, and as it looked **too empty** to
-my taste when trying the design, I added the author of the image to each row.
+## Features
 
-### No third-party libraries. Build UI programmatically in Kotlin or using Layout Editor in XML.
+The application consists of two screens: one displaying the list of images and
+another showing the details of a selected image.
 
-Jetpack Compose is not considered a third-party library because it is an official toolkit developed
-and maintained by Google as part of the Android ecosystem. Therefore, even if a project statement
-specifies that the UI should be developed with "No third-party libraries" and built programmatically
-in Kotlin or using the Layout Editor in XML, we will use Jetpack Compose. Its official status,
-seamless integration with other AndroidX libraries, and comprehensive support make it an integral
-part of the Android development environment, justifying its use despite the project's restrictions
-on third-party libraries.
+### Screen orientation
 
-## Architecture of the application
+> The most common orientation for an Android app is portrait, since that's how
+most phones are held. While portrait is good for phones, it's terrible for
+laptops and tablets, where landscape is preferred. To get the best results for
+your app, consider supporting both orientations.
+[Android Window Management - Screen Orientation](https://developer.android.com/topic/arc/window-management#screen_orientation)
 
-This application is made of a UI and a data module
+For this reason, even if the constraints state that only phone portrait needs
+to be supported, both landscape and portrait orientation are supported. However,
+layout is optimized only for portrait, and landscape mode is only _Supported_.
 
-### Data layer / `data` module / `com.resy.picsum.data` package name
+### Image list
 
-This module is the module containing the data, which are the models, the datasource contracts, and
-the repositories implementations.
+The list is loaded and then displayed to the user following this loading
+mechanism:
 
-### Framwork layer / `framework` module / `com.resu.picsum.framework` package name
+![Loading images](doc/img/image_list_feature_diagram.svg)
 
-This module is the module which will contain implementation of the contracts in the data module.
+#### Écran d'erreur
 
-### Domain layer / `domain` module / `com.resy.picsum.domain` package name
+<img src="doc/img/image_list_error_screen.png" alt="error screen" width="200"/>
 
-This module is the module containing the use cases of the application.
+* When the user clicks the `Try again` button, the loading mechanism described
+above is launched again.
 
-### UI layer / `app` module / `com.resy.picsum.android` package name
+#### Écran avec la liste des images
 
-This module is the module containing the UI and the elements of the running application. The name
-of the package has be chosen to be distinct from other modules, and to make sense as an application
-package name in the store.
+<img src="doc/img/image_list_success_screen.png" alt="error screen" width="200"/>
 
-#### Single activity architecture
+The Snackbar visible on this screen appears only when an error occurs while
+loading the results from the API.
 
-The architecture will be based on a single Activity, and navigating between view will be performed
-with a Navigation component.
+* When the user clicks the `Try again` button, the loading mechanism described
+above is launched again.
+* When the user clicks on an image in the list, they are redirected to the
+detail screen.
 
-## Features of the applications
+### Image Details
 
-### MVP
+The displayed image is loaded and then shown to the user following this loading
+mechanism:
 
-The MVP (minimum viable product) is the minimal goal to achive. If this is not achieve, application
-can be considered as not released :
+![Loading images](doc/img/loadiing_image_feature_diagram.svg)
 
-* Get the list of pictures from the API
-* Display the picture from the Network
+#### Error Screen
 
-### Goal
+<img src="doc/img/loading_image_failed.png" alt="error screen" width="200"/>
 
-The goal is what we will tend to achieve for this project, and what we will commit on.
+* When the user clicks the `Try again` button, the loading mechanism described
+above is launched again.
 
-* Use Room cache for the list of pictures
-* Use Image cache for displaying pictures
+#### Detail Screen
 
-### Optional
+| Landscape | Portrait |
+| --------- | -------- |
+| <img src="doc/img/loading_image_success_landscape.png" alt="error screen" width="200"/> | <img src="doc/img/loading_image_success_portrait.png" alt="error screen" width="200"/> |
 
-This is the list of features that would be great to have if we have time to develop it
+The image is displayed at the top of the screen if:
 
-* Background service to download pictures, for example pre-download them if the user is using Wi-fi
-network
-* Having an LRU cache logic, in order to maintain a reasonable size for the cache of the application
+* The image's height is greater than its width
+
+**OR**
+
+* There is not enough height on the screen to display the image and the author's
+name below it (this can happen, for example, in portrait mode if the screen is
+1000px (width) * 1001px (height) and the image is 1000px (width) by 999px
+(height)). Adding the height of the status bar and the author label, there is
+not enough height on the screen to display all of them.
+
+Otherwise, the image will be displayed centered vertically in the screen.
+
+#### Common to All Screens
+
+* By clicking the back button, the user will be redirected to the previous
+list screen.
+* Clicking anywhere on the screen will hide (if visible) or show (if hidden) the
+back button.
