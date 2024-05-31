@@ -20,10 +20,10 @@ class LocalImageDatasourceImplTest {
 
     @Test
     fun testGetLocalImageList() = runTest {
-        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla")
-        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val image1 = Image(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla")
+        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla", "jpeg")
+        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val image1 = Image(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla", "jpeg")
 
         imageEntities.add(imageEntity0)
         imageEntities.add(imageEntity1)
@@ -38,10 +38,10 @@ class LocalImageDatasourceImplTest {
 
     @Test
     fun testInsertLocalImageList() = runTest {
-        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla")
-        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val image1 = Image(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla")
+        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla", "jpeg")
+        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val image1 = Image(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla", "jpeg")
 
         val localImageDatasourceImpl = LocalImageDatasourceImpl(dao)
         localImageDatasourceImpl.insert(listOf(image0, image1))
@@ -53,9 +53,9 @@ class LocalImageDatasourceImplTest {
 
     @Test
     fun testUpdate() = runTest {
-        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla")
-        val image1 = Image(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla")
+        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla", "jpeg")
+        val image1 = Image(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla", "jpeg")
 
         imageEntities.addAll(listOf(imageEntity0, imageEntity1))
 
@@ -69,12 +69,12 @@ class LocalImageDatasourceImplTest {
 
     @Test
     fun testDelete() = runTest {
-        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla")
-        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla")
-        val image1 = Image(1, 3000, 3000, "2.jpeg", "John Doe")
+        val imageEntity0 = ImageDbEntity(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val imageEntity1 = ImageDbEntity(1, 4000, 2000, "1.jpeg", "Alejandro Escamilla", "jpeg")
+        val image0 = Image(0, 5000, 3333, "0.jpeg", "Alejandro Escamilla", "jpeg")
+        val image1 = Image(1, 3000, 3000, "2.jpeg", "John Doe", "jpeg")
 
-        val imageEntity1Updated = ImageDbEntity(1, 3000, 3000, "2.jpeg", "John Doe")
+        val imageEntity1Updated = ImageDbEntity(1, 3000, 3000, "2.jpeg", "John Doe", "jpeg")
 
         imageEntities.addAll(listOf(imageEntity0, imageEntity1))
 

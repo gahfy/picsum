@@ -4,13 +4,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.resy.picsum.android.ui.navigation.Navigation.Args.IMAGE_PARAM
 import com.resy.picsum.android.ui.navigation.Navigation.Routes.IMAGE
 import com.resy.picsum.android.ui.navigation.Navigation.Routes.IMAGE_LIST
 import com.resy.picsum.data.model.Image
+import com.resy.picsum.data.model.toImage
 
 /**
  * The Navigation to be used for the application, which contains all the destinations
@@ -31,13 +34,16 @@ fun AppNavigation() {
         }
 
         composable(
-            route = IMAGE
-        ) {
-            val image = navController.previousBackStackEntry?.savedStateHandle?.get<Image>(
-                IMAGE_PARAM
+            route = "$IMAGE/{$IMAGE_PARAM}",
+            arguments = listOf(
+                navArgument(IMAGE_PARAM) {
+                    type = NavType.StringType
+                }
             )
+        ) {
+            val image = it.arguments?.getString(IMAGE_PARAM)?.toImage()
             image?.let {
-                ImageScreenDestination(image)
+                ImageScreenDestination(image, navController)
             }
         }
     }
@@ -79,6 +85,5 @@ object Navigation {
  * @param image the image to be displayed
  */
 fun NavController.navigateToImage(image: Image) {
-    currentBackStackEntry?.savedStateHandle?.set(IMAGE_PARAM, image)
-    navigate(route = IMAGE)
+    navigate(route = "$IMAGE/${image}")
 }

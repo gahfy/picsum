@@ -1,7 +1,10 @@
 package com.resy.picsum.framework.di
 
+import com.resy.picsum.data.datasource.CachedFileDatasource
 import com.resy.picsum.data.datasource.LocalImageDatasource
 import com.resy.picsum.data.datasource.RemoteImageDatasource
+import com.resy.picsum.data.repository.CachedFileRepository
+import com.resy.picsum.data.repository.CachedFileRepositoryImpl
 import com.resy.picsum.data.repository.ImageRepository
 import com.resy.picsum.data.repository.ImageRepositoryImpl
 import dagger.Module
@@ -34,6 +37,23 @@ internal object RepositoryModule {
         return ImageRepositoryImpl(
             localDatasource = localImageDatasource,
             remoteDatasource = remoteImageDatasource
+        )
+    }
+
+    /**
+     * Provides the cached file repository to be used in the application
+     *
+     * @param cachedFileDatasource the datasource to access cached files
+     *
+     * @return the cached file repository to be used in the application
+     */
+    @Provides
+    @ViewModelScoped
+    fun provideCachedFileRepository(
+        cachedFileDatasource: CachedFileDatasource
+    ): CachedFileRepository {
+        return CachedFileRepositoryImpl(
+            cachedFileDatasource = cachedFileDatasource
         )
     }
 }

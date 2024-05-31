@@ -9,15 +9,9 @@ import com.resy.picsum.data.model.Image
 import org.junit.Rule
 import org.junit.Test
 
-/**
- * This class contains the list of tests for the image list screen
- */
 class ImageListScreenTest {
     @get:Rule val composeTestRule = createComposeRule()
 
-    /**
-     * Checks that the main screen is displaying an Hello, World! message
-     */
     @Test
     fun testMainScreen() {
         composeTestRule.setContent {
@@ -26,12 +20,12 @@ class ImageListScreenTest {
                     ImageListScreen(
                         ImageListState.ImageListStateSuccess(
                             images = listOf(
-                                Image(0, 3000, 4000, "0.jpg", "John Doe")
+                                Image(0, 3000, 4000, "0.jpg", "John Doe", "jpeg")
                             ),
                             errorMessage = null,
                             onErrorActionClick = {},
-                            onImageClick = {}
-                        )
+                        ),
+                        onNavigateToImage = {}
                     )
                 }
             }

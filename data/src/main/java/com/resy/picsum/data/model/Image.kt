@@ -10,6 +10,7 @@ import java.io.Serializable
  * @property height   the height (in pixels) of the image
  * @property filename the name of the image file
  * @property author   the name of the author of the image
+ * @property type     the type of the file of the image (jpg, png, ...)
  *
  * @constructor Instantiates a new [Image].
  *
@@ -18,6 +19,7 @@ import java.io.Serializable
  * @param height   the height (in pixels) of the image to set
  * @param filename the name of the image file to set
  * @param author   the name of the author of the image to set
+ * @param type     the type of the file of the image (jpg, png, ...) to set
  */
 @Suppress("SerialVersionUIDInSerializableClass")
 data class Image(
@@ -25,5 +27,39 @@ data class Image(
     val width: Int,
     val height: Int,
     val filename: String,
-    val author: String
-): Serializable
+    val author: String,
+    val type: String
+): Serializable {
+    /**
+     * Returns a String representing the image.
+     */
+    override fun toString(): String {
+        return "$id\n$width\n$height\n$filename\n$author\n$type"
+    }
+}
+
+/**
+ * Instantiates an [Image] from the current String.
+ *
+ * @return the Image that has been instantiated
+ *
+ * @throws IllegalArgumentException If the String is not well formatted
+ */
+@Suppress("MagicNumber")
+fun String.toImage(): Image {
+    val splitted = split("\n")
+    if(splitted.size == 6) {
+        return Image(
+            splitted[0].toLong(),
+            splitted[1].toInt(),
+            splitted[2].toInt(),
+            splitted[3],
+            splitted[4],
+            splitted[5]
+        )
+    } else {
+        require(false) {"String is not well formed"}
+        // We don't care as previous statement throws an exception
+        return Image(0, 0, 0, "", "", "")
+    }
+}

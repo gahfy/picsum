@@ -3,4 +3,7 @@
 
     <string name="error_loading">An error occurred while trying to load the images</string>
     <string name="try_again">Try again</string>
+    <string name="back">Back</string>
+    <string name="cant_load_images">Can\'t load list of images</string>
+    <string name="cant_load_image">Can\'t load  image</string>
 </resources>

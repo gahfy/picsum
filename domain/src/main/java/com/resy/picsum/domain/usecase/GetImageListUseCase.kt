@@ -21,7 +21,7 @@ interface GetImageListUseCase {
  *
  * @property repository the repository from which to retrieve the flow of list of images
  *
- * @constructor Instantiates a new [GetImageListUseCase]
+ * @constructor Instantiates a new [GetImageListUseCaseImpl]
  *
  * @param repository the repository from which to retrieve the flow of list of images to set
  */

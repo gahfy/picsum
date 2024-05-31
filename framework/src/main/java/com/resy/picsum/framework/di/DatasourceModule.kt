@@ -1,15 +1,20 @@
 package com.resy.picsum.framework.di
 
+import android.content.Context
+import com.resy.picsum.data.datasource.CachedFileDatasource
 import com.resy.picsum.data.datasource.LocalImageDatasource
 import com.resy.picsum.data.datasource.RemoteImageDatasource
 import com.resy.picsum.framework.api.service.PicsumApiService
+import com.resy.picsum.framework.database.dao.CachedFileDao
 import com.resy.picsum.framework.database.dao.ImageDao
+import com.resy.picsum.framework.datasource.CachedFileDatasourceImpl
 import com.resy.picsum.framework.datasource.LocalImageDatasourceImpl
 import com.resy.picsum.framework.datasource.RemoteImageDatasourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 
 /**
@@ -50,6 +55,26 @@ internal object DatasourceModule {
     ): RemoteImageDatasource {
         return RemoteImageDatasourceImpl(
             apiService = apiService
+        )
+    }
+
+    /**
+     * Provides the datasource for cached files to be used in the application.
+     *
+     * @param cachedFileDao the DAO to be used to access Cached File in database
+     * @param context       the Context in which the application is running
+     *
+     * @return the datasource for cached files to be used in the application
+     */
+    @Provides
+    @ViewModelScoped
+    fun provideCachedFileDatasource(
+        cachedFileDao: CachedFileDao,
+        @ApplicationContext context: Context
+    ): CachedFileDatasource {
+        return CachedFileDatasourceImpl(
+            cachedFileDao = cachedFileDao,
+            context = context
         )
     }
 }

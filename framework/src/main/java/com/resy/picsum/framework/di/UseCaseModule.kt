@@ -1,6 +1,9 @@
 package com.resy.picsum.framework.di
 
+import com.resy.picsum.data.repository.CachedFileRepository
 import com.resy.picsum.data.repository.ImageRepository
+import com.resy.picsum.domain.usecase.GetCachedFileUseCase
+import com.resy.picsum.domain.usecase.GetCachedFileUseCaseImpl
 import com.resy.picsum.domain.usecase.GetImageListUseCase
 import com.resy.picsum.domain.usecase.GetImageListUseCaseImpl
 import dagger.Module
@@ -29,6 +32,23 @@ internal object UseCaseModule {
         repository: ImageRepository
     ) : GetImageListUseCase {
         return GetImageListUseCaseImpl(
+            repository
+        )
+    }
+
+    /**
+     * Provides the use case to get cached file results.
+     *
+     * @param repository the repository for cached file results to be used by the use case
+     *
+     * @return the use case to get cached file results
+     */
+    @Provides
+    @ViewModelScoped
+    fun provideGetCachedFileUseCase(
+        repository: CachedFileRepository
+    ): GetCachedFileUseCase {
+        return GetCachedFileUseCaseImpl(
             repository
         )
     }
