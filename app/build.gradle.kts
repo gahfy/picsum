@@ -19,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.resy.picsum.android.CustomTestRunner"
     }
 
     buildTypes {
@@ -51,6 +51,7 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":framework"))
+    androidTestImplementation(project(":framework"))
     implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
@@ -58,7 +59,6 @@ dependencies {
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))
@@ -76,6 +76,20 @@ dependencies {
     implementation(libs.daggerHilt)
     ksp(libs.daggerCompiler)
     implementation(libs.daggerHilt.navigation.compose)
+    androidTestImplementation(libs.daggerTest)
+    kspAndroidTest(libs.daggerCompiler)
 
     testImplementation(libs.coroutines.test)
+
+    testImplementation(libs.androidx.test.runner)
+    testImplementation(libs.androidx.test.rules)
+    testImplementation(libs.androidx.test.coreKtx)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.espresso.core)
+
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.androidx.test.coreKtx)
+    androidTestImplementation(libs.androidx.test.core)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
