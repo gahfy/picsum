@@ -32,14 +32,14 @@ mechanism:
 
 ![Loading images](doc/img/image_list_feature_diagram.svg)
 
-#### Écran d'erreur
+#### Error screen
 
 <img src="doc/img/image_list_error_screen.png" alt="error screen" width="200"/>
 
 * When the user clicks the `Try again` button, the loading mechanism described
 above is launched again.
 
-#### Écran avec la liste des images
+#### Image List screen
 
 <img src="doc/img/image_list_success_screen.png" alt="error screen" width="200"/>
 
