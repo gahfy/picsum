@@ -1,6 +1,5 @@
 package com.resy.picsum.framework.di
 
-import android.net.TrafficStats
 import com.resy.picsum.framework.api.service.PicsumApiService
 import com.resy.picsum.framework.BuildConfig
 import dagger.Module

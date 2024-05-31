@@ -1,11 +1,8 @@
 package com.resy.picsum.android.ui.image
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -29,15 +26,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.os.ConfigurationCompat
 import com.resy.picsum.android.R
 import com.resy.picsum.android.ui.theme.BLACK
 
+/**
+ * Screen to be displayed when displaying an image details.
+ *
+ * @param state          the current state of the screen
+ * @param onNavigateBack the action to be performed when navigating back
+ */
 @Suppress("FunctionNaming")
 @Composable
 fun ImageScreen(
@@ -73,7 +74,8 @@ fun ImageScreen(
         }
         val imageAlpha: Float by animateFloatAsState(
             targetValue = if (isBackVisible) 1f else 0f,
-            animationSpec = tween(durationMillis = 225, easing = LinearEasing)
+            animationSpec = tween(durationMillis = 225, easing = LinearEasing),
+            label = "imageAlpha"
         )
             Box(
                 modifier = Modifier

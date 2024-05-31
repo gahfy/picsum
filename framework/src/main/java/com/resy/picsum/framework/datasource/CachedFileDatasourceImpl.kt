@@ -5,11 +5,11 @@ import android.net.TrafficStats
 import com.resy.picsum.data.datasource.CachedFileDatasource
 import com.resy.picsum.data.model.CachedFile
 import com.resy.picsum.framework.database.dao.CachedFileDao
+import com.resy.picsum.framework.database.entity.CachedFileDbEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.net.URL
 
 /** The size of the buffer */
@@ -48,9 +48,7 @@ class CachedFileDatasourceImpl(
         clearCache()
 
         // Check if a valid entry exists in database
-        val cachedFile = withContext(Dispatchers.IO) {
-            cachedFileDao.getCachedFile(urlString)
-        }
+        val cachedFile = withContext(Dispatchers.IO) { cachedFileDao.getCachedFile(urlString) }
         if(cachedFile != null) {
             val file = File(context.cacheDir, cachedFile.filename)
             if (file.exists()) {
@@ -62,7 +60,7 @@ class CachedFileDatasourceImpl(
             }
         }
 
-        withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.IO) {
             TrafficStats.setThreadStatsTag(cachedFile?.fileUrl.hashCode())
 
             val url = URL(urlString)
@@ -89,9 +87,7 @@ class CachedFileDatasourceImpl(
 
             // Filename will 10 random characters followed by the extension
             val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-            filename = "${(1..CACHE_FILENAME_LENGTH)
-                .map { allowedChars.random() }
-                .joinToString("")}.${type}"
+            filename = "${(1..CACHE_FILENAME_LENGTH).map { allowedChars.random() }.joinToString("")}.${type}"
 
             val file = File(context.cacheDir, filename)
             val outputStream = FileOutputStream(file)
@@ -107,16 +103,22 @@ class CachedFileDatasourceImpl(
 
             inputStream.close()
             outputStream.close()
+
+            val result = CachedFile(
+                urlString,
+                System.currentTimeMillis() + maxAge.toLong(),
+                filename
+            )
+            withContext(Dispatchers.IO) {
+                cachedFileDao.insertCachedFile(CachedFileDbEntity(result))
+            }
+            result
         }
-
-
-        return CachedFile(
-            urlString,
-            System.currentTimeMillis() + maxAge.toLong(),
-            filename
-        )
     }
 
+    /**
+     * Clears the outdated files and entries in database from the cache
+     */
     private suspend fun clearCache() = withContext(Dispatchers.IO) {
         val cachedFilesToRemove = cachedFileDao.getCachedFilesToClear(System.currentTimeMillis())
         cachedFilesToRemove.forEach { cachedFile ->

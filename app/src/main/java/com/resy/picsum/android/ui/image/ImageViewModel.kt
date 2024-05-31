@@ -1,6 +1,5 @@
 package com.resy.picsum.android.ui.image
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -15,7 +14,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -28,6 +26,11 @@ import java.io.IOException
  *                                ViewModel
  * @property state                The current state of the view that can be subscribed outside of
  *                                the ViewModel
+ * @property imageWidth           The width in pixels of the currently displayed image
+ * @property imageHeight          The height in pixels of the currently displayed image
+ * @property width                The current width in pixels of the screen
+ * @property height               The current height in pixels of the screen
+ * @property density              The current density of the screen (as float dp*density = px)
  *
  * @constructor Instantiates a new [ImageViewModel].
  *
@@ -45,17 +48,28 @@ class ImageViewModel @AssistedInject constructor(
         )
     )
     val state: State<ImageState> = _state
-    var imageWidth: Int? = null
-    var imageHeight: Int? = null
-    var width: Int? = null
-    var height: Int? = null
-    var density: Float? = null
 
+    private var imageWidth: Int? = null
+    private var imageHeight: Int? = null
+    private var width: Int? = null
+    private var height: Int? = null
+    private var density: Float? = null
+
+    /**
+     * Called when the size of the screen is available (may be called multiple times when screen
+     * size changes).
+     *
+     * @param width   the width in pixels of the screen
+     * @param height  the height in pixels of the screen
+     * @param density the density of the screen (as float, dp*density = px)
+     */
     private fun onSizeAvailable(width: Int, height: Int, density: Float) {
         if(this.width != width || this.height != height || this.density != density) {
             this.width = width
             this.height = height
             this.density = density
+            // If the image will be wider, we need to download it again, otherwise, we just change
+            // the state
             if(width > (imageWidth?:0)) {
                 downloadImage()
             } else {
@@ -67,6 +81,9 @@ class ImageViewModel @AssistedInject constructor(
         }
     }
 
+    /**
+     * Called when an image needs to be downloaded.
+     */
     private fun downloadImage() {
         updateLoadingState()
         val imageHeight =
@@ -92,20 +109,26 @@ class ImageViewModel @AssistedInject constructor(
         }
     }
 
+    /**
+     * Updates the success state of the screen.
+     *
+     * @param orientation the orientation of the image if known, or null if not yet determined
+     * @param image       the image to be displayed
+     * @param imageHeight the height in pixels of the image
+     * @param cachedFile  the cached file containing the path to the file of the image
+     */
     private fun updateSuccessState(
         orientation: Orientation? = (_state.value as? ImageState.ImageSuccessState)?.orientation,
         image: Image = (_state.value as? ImageState.ImageSuccessState)?.image?:this.image,
         imageHeight: Int,
         cachedFile: CachedFile? = (_state.value as? ImageState.ImageSuccessState)?.cachedFile
     ) {
-        val orientationToApply = if(orientation == null)
+        val orientationToApply = orientation?:
             determineOrientation(
                 availableHeight = height?:0,
                 imageHeight = imageHeight,
                 imageWidth = width?:0
             )
-        else
-            orientation
         _state.value = ImageState.ImageSuccessState(
             orientation = orientationToApply,
             image = image,
@@ -114,12 +137,18 @@ class ImageViewModel @AssistedInject constructor(
         )
     }
 
+    /**
+     * Updates the loading state of the screen.
+     */
     private fun updateLoadingState() {
         _state.value = ImageState.ImageLoadingState(
             onSize = ::onSizeAvailable
         )
     }
 
+    /**
+     * Updates the error state of the screen.
+     */
     private fun updateErrorState() {
         _state.value = ImageState.ImageErrorState(
             onErrorActionClick = { downloadImage() },
@@ -148,7 +177,6 @@ class ImageViewModel @AssistedInject constructor(
      * @param availableHeight the available height for the screen
      * @param imageHeight the height of the image
      * @param imageWidth the width of the image
-     * @param density the density of the screen
      *
      * @return the orientation to apply to the image according to the given parameters.
      */
@@ -161,10 +189,10 @@ class ImageViewModel @AssistedInject constructor(
         // TODO: Calculate real height
         val supposedAuthorHeight = 50f
         val heightInAddition = (supposedAuthorHeight / (density?:0f)).toInt()
-        if(imageHeight > imageWidth || availableHeight < imageHeight + heightInAddition) {
-            return Orientation.PORTRAIT
+        return if(imageHeight > imageWidth || availableHeight < imageHeight + heightInAddition) {
+            Orientation.PORTRAIT
         } else {
-            return Orientation.LANDSCAPE
+            Orientation.LANDSCAPE
         }
     }
 

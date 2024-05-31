@@ -7,6 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -21,7 +22,8 @@ import kotlinx.coroutines.launch
 /**
  * The screen with the list of images.
  *
- * @param state the current state of the view.
+ * @param state             the current state of the view
+ * @param onNavigateToImage the action to be called when navigating to an image
  */
 @Suppress("FunctionNaming")
 @Composable
@@ -39,11 +41,14 @@ fun ImageListSuccessScreen(
         state.errorMessage?.collect()?.let {
             val tryAgainMessage = stringResource(id = R.string.try_again)
             coroutineScope.launch {
-                snackbarHostState.showSnackbar(
+                val result = snackbarHostState.showSnackbar(
                     message = it,
                     actionLabel = tryAgainMessage,
                     duration = SnackbarDuration.Long
                 )
+                if(result == SnackbarResult.ActionPerformed) {
+                    state.onErrorActionClick()
+                }
             }
         }
         LazyColumn(Modifier.padding(it)) {

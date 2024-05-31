@@ -29,7 +29,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
- * The screen which displays an image.
+ * The screen which displays an image when it has been successfully loaded.
  *
  * @param state the current state of the screen
  */

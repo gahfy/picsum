@@ -6,6 +6,8 @@ import dagger.hilt.android.HiltAndroidApp
 
 /**
  * The Application class of the application. In use for dagger only for now.
+ *
+ * @constructor Instantiates a new [PicsumApplication].
  */
 @HiltAndroidApp
 class PicsumApplication: Application() {

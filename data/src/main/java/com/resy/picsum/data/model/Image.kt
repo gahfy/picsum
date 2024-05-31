@@ -30,11 +30,21 @@ data class Image(
     val author: String,
     val type: String
 ): Serializable {
+    /**
+     * Returns a String representing the image.
+     */
     override fun toString(): String {
         return "$id\n$width\n$height\n$filename\n$author\n$type"
     }
 }
 
+/**
+ * Instantiates an [Image] from the current String.
+ *
+ * @return the Image that has been instantiated
+ *
+ * @throws IllegalArgumentException If the String is not well formatted
+ */
 @Suppress("MagicNumber")
 fun String.toImage(): Image {
     val splitted = split("\n")
